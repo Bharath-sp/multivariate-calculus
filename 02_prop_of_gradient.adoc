@@ -1,0 +1,58 @@
+= Properties of Gradient =
+:doctype: book
+:author: Bharath Kumar S P
+:email: bharath030195@gmail.com
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Direction of the Gradient ==
+The gradient is the vector in the input space. Let stem:[f: \mathbb{R}^2 \rightarrow \mathbb{R}]. Say we are at stem:[\mathbf{x}_0], and the gradient of the function at stem:[\mathbf{x}_0] is marked as stem:[\nabla f(\mathbf{x}_0)]. What is the direction in which we should move from stem:[\mathbf{x}_0] (instantaneously - on moving a very small step from stem:[\mathbf{x}_0]) so that the function value increases the maximum?
+
+By the theorem, we know stem:[D_{\mathbf{u}} f(\mathbf{x}_0) = \langle \nabla f(\mathbf{x}_0), \mathbf{u} \rangle].
+
+* If stem:[\mathbf{u}] is in the direction of the gradient, the inner product will be maximum. Thus the instantaneous rate of change of the function is the maximum, i.e., the function increases the maximum.
+* If stem:[\mathbf{u}] is in the opposite direction of the gradient, the inner product will be minimum. Thus the instantaneous rate of change of the function is the minimum, i.e., the function decreases the maximum.
+* If stem:[\mathbf{u}] is in the orthogonal direction to the gradient, the inner product will be 0. Thus the instantaneous rate of change of the function doesn't change, i.e., the function value doesn't change in this direction.
+
+*Direction of the gradient with respect to the level set:*
+
+Say we are at a point stem:[\mathbf{x}_0] on the level set of the function at stem:[\alpha=1]. The gradient will be in the normal direction of the level set.
+
+image::.\images\gradient_01.png[align='center', 600, 300]
+
+The gradient vector stem:[\nabla f] at stem:[(x_0, y_0)] is orthogonal to the level curve stem:[f(x,y)=k] at the point stem:[(x_0, y_0)]. Likewise, the gradient vector stem:[\nabla f] at stem:[(x_0, y_0, z_0)] is orthogonal to the level curve stem:[f(x,y,z)=k] at the point stem:[(x_0, y_0, z_0)].
+
+== Smooth Functions ==
+A function is stem:[L-]smooth if the derivative of the function is Lipschitz continuous. This Lipschitz constant is called as the smoothness constant.
+
+[stem]
+++++
+\|\nabla f(\mathbf{x}) - \nabla f(\mathbf{y})\| \leq L \| \mathbf{x} - \mathbf{y} \|
+++++
+
+A function mayn't be Lipschitz continuous, but it can be smooth, i.e., its derivative (or the gradient) can be Lipschitz continuous. For example, the function stem:[f(x) = \frac{1}{2} x^2].
+
+== Chain Rule ==
+Let stem:[f,g : \mathbb{R} \rightarrow \mathbb{R}] and let stem:[h(x) = f(g(x))]. Then the derivative of stem:[h(x)] is
+
+[stem]
+++++
+h'(x) = f'(g(x)) g'(x)
+++++
+
+Suppose stem:[f : \mathbb{R}^n \rightarrow \mathbb{R}^m] is differentiable at stem:[\mathbf{x} \in \mathbb{R}^n] and stem:[g: \mathbb{R}^m \rightarrow \mathbb{R}^p] is differentiable at stem:[f(\mathbf{x})]. Define the composition stem:[h: \mathbb{R}^n \rightarrow \mathbb{R}^p] by stem:[h(\mathbf{x})= g(f(\mathbf{x}))]. Then stem:[h] is differentiable at stem:[\mathbf{x}], with derivative
+
+[stem]
+++++
+Dh(\mathbf{x}) = Dg(f(\mathbf{x})) Df(\mathbf{x})
+++++
+
+Where stem:[D] denotes the Jacobian of the function, which results in a matrix. The RHS is the multiplication of two matrices. We should take care of the order and transpose a matrix if necessary.
+
+For example, suppose stem:[f : \mathbb{R}^n \rightarrow \mathbb{R}] and stem:[g: \mathbb{R} \rightarrow \mathbb{R}], and stem:[h(\mathbf{x})= g(f(\mathbf{x}))]. Then
+
+[stem]
+++++
+\nabla h(\mathbf{x}) = g'(f(\mathbf{x})) \nabla f(\mathbf{x})
+++++

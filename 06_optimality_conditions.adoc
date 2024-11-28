@@ -1,0 +1,64 @@
+= Optimality Conditions =
+:doctype: book
+:author: Bharath Kumar S P
+:email: bharath030195@gmail.com
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Characterizing Optimality ==
+We are usually interested in the certificate of optimality. We need some mathematical conditions which can certify that the solution is optimal. There are some certificates for optimality.
+
+When stem:[\mathbf{x}^*] is an optimal solution, it means
+
+. stem:[\mathbf{x}^* \in \mathcal{F}], i.e., it should be in the feasible set.
+. stem:[f(\mathbf{x}^*) =] value of the MP.
+
+Say our MP is stem:[\min_{\mathbf{x} \in D} f(\mathbf{x})]. Then it is equivalent to say
+
+[stem]
+++++
+f(\mathbf{x}^*) = \min_{\mathbf{x} \in D} f(\mathbf{x}) \iff f(\mathbf{x}^*) \leq f(\mathbf{x}) \hspace{1cm} \forall \mathbf{x} \in \mathcal{F}
+++++
+
+Here the LHS has only one equality and the RHS has uncountable number of inequalities (assuming we have our uncountable number of elements in our feasible set).
+
+If stem:[\mathbf{x}_0] has to be optimal, what are the necessary conditions and sufficient conditions?
+
+image::.\images\optimality_01.png[align='center', 400, 300]
+
+If stem:[\mathbf{x}_0] has to be optimum, at least in the neighborhood of stem:[\mathbf{x}_0], the function values should be greater than the function value at stem:[\mathbf{x}_0]. The linear approximation of the function at stem:[\mathbf{x}_0] is
+
+[stem]
+++++
+l_{\mathbf{x}_0}(\mathbf{x}) = f(\mathbf{x}_0) + \nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0)
+++++
+
+We are at stem:[\mathbf{x}_0], if we move instantaneously in any direction from stem:[\mathbf{x}_0] which is given by the vector stem:[(\mathbf{x}-\mathbf{x}_0)], we are saying that the function value should be greater than or equal to stem:[f(\mathbf{x}_0)]. That is
+
+[stem]
+++++
+\begin{align*}
+f(\mathbf{x}_0) + \nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0) & \geq f(\mathbf{x}_0) \\
+\iff \nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0) & \geq 0 && \forall \mathbf{x} \in \mathcal{N}(\mathbf{x}_0) \cap \mathcal{F} \\
+\iff \nabla f(\mathbf{x}_0) = \mathbf{0}
+\end{align*}
+++++
+
+====
+* If the gradient of stem:[f] at a point stem:[\mathbf{x}_0] is stem:[\mathbf{0}], then it means that in the neighborhood of stem:[\mathbf{x}_0]
+
+** The function values are all greater than or equal to stem:[f(\mathbf{x}_0)] (or) 
+** The function values are all lesser than or equal to stem:[f(\mathbf{x}_0)] (or)
+** In some directions the function values are all greater than or equal and in some other directions the function values are all less than or equal (saddle point).
++
+So if the gradient of stem:[f] at a point stem:[\mathbf{x}_0] is stem:[\mathbf{0}], we cannot say much. Such points where the gradient is stem:[\mathbf{0}] are called as *stationary points*.
+
+* But if we want all the function values to be greater than or equal to stem:[f(\mathbf{x}_0)] in the neighborhood of stem:[\mathbf{x}_0], then definitely the gradient of stem:[f] at that point stem:[\mathbf{x}_0] should be stem:[\mathbf{0}].
+
+If stem:[\mathbf{x}_0] has to be local minima, the gradient of stem:[f] at stem:[\mathbf{x}_0] should be stem:[\mathbf{0}]. This is the necessary condition, but not the sufficient condition.
+====
+
+* Whenever there is no restriction in the direction that we can go from stem:[\mathbf{x}_0] or when the feasibility set is an open set (doesn't include the boundary points), then the gradient of stem:[f] should be stem:[\mathbf{0}] at such point for the point to be a local minima.
+
+* But if there is restriction in the direction that we can go from stem:[\mathbf{x}_0] because of the feasibility set, then the gradient being stem:[\mathbf{0}] is not a valid condition. Then at that point we need to verify stem:[\nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0) \geq 0] for it to be a local minima.

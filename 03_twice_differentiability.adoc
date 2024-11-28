@@ -1,0 +1,160 @@
+= Twice Differentiability =
+:doctype: book
+:author: Bharath Kumar S P
+:email: bharath030195@gmail.com
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Introduction ==
+The second derivative can be interpreted as the derivative of the first derivative.
+
+For a single variable function stem:[f(x)], its derivative is also a single variable function stem:[f'(x)] that takes an input stem:[x] and gives a scalar. We can easily take the derivative of these functions as well to get stem:[f''(x)].
+
+For multivariate function stem:[f(\mathbf{x})], its derivative is the gradient stem:[\nabla f(\mathbf{x})]. The gradient takes an n-dimensional input and gives an n-dimensional output. We need to take derivative of such a vector-valued function. The derivative of this mappping is the Hessian matrix.
+
+[stem]
+++++
+D\nabla f(\mathbf{x}) = \nabla^2  f(\mathbf{x})
+++++
+
+We know that the derivative of a vector-valued function is the Jacobian. Then we say, Hessian is the Jacobian of the gradient.
+
+== Twice Differentiability ==
+A general quadratic function defined in the stem:[\mathbb{R}^n] space is given by
+
+[stem]
+++++
+f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\top \mathbf{P} \mathbf{x} + \mathbf{q}^\top \mathbf{x} + r
+++++
+
+This function should passthrough stem:[(\mathbf{x}_0, f(\mathbf{x}_0))]. Such a function is
+
+[stem]
+++++
+q_{\mathbf{x}_0}(\mathbf{x}) = f(\mathbf{x}_0) + \mathbf{w}^\top (\mathbf{x} - \mathbf{x}_0) + \frac{1}{2} (\mathbf{x} - \mathbf{x}_0)^\top \mathbf{P}(\mathbf{x} - \mathbf{x}_0)
+++++
+
+This gives us the general quadratic approximation of stem:[f] at stem:[\mathbf{x}_0]. So if there exists a stem:[\mathbf{w} \in \mathbb{R}^n] and stem:[\mathbf{P} \in \mathbb{R}^{n \times n}] such that 
+
+[stem]
+++++
+\lim_{\mathbf{x} \to \mathbf{x}_0} \frac{|f(\mathbf{x}) - (f(\mathbf{x}_0) + \mathbf{w}^\top (\mathbf{x} - \mathbf{x}_0) + \frac{1}{2} (\mathbf{x} - \mathbf{x}_0)^\top \mathbf{P}(\mathbf{x} - \mathbf{x}_0))|}{\| \mathbf{x} - \mathbf{x}_0\|^2} = 0
+++++
+
+the limit goes to 0, then we say the function is twice differentiable at stem:[\mathbf{x}_0]. Such stem:[\mathbf{w}] is the gradient of stem:[f] at stem:[\mathbf{x}_0] and stem:[\mathbf{P}] is the Hessian of stem:[f] at stem:[\mathbf{x}_0]. The Hessian of stem:[f] at stem:[\mathbf{x}_0] is denoted by stem:[\nabla^2 f(\mathbf{x}_0)].
+
+NOTE: Here the error should decay at least quadratically.
+
+The following theorem helps us compute the Hessian of stem:[f] at stem:[\mathbf{x}_0]. The theorem is
+
+====
+[stem]
+++++
+\nabla^2 f(\mathbf{x}_0)\, |_{i,j} = \mathbf{H}_f(\mathbf{x}_0) \, |_{i,j} = \frac{\partial ^2 f(\mathbf{x}_0) }{\partial x_i \partial x_j}
+++++
+====
+
+The Hessian is always a square and symmetric matrix.
+
+*Example 01:*
+
+Let stem:[f(\mathbf{x}) = \mathbf{w}^\top \mathbf{x} ]. Find the Hessian of stem:[f].
+
+[stem]
+++++
+\nabla^2 f(\mathbf{x}) = 
+\begin{bmatrix}
+\frac{\partial ^2 f(\mathbf{x}) }{\partial x_1^2} & \frac{\partial ^2 f(\mathbf{x}) }{\partial x_1 \partial x_2} & \dots & \frac{\partial ^2 f(\mathbf{x}) }{\partial x_1 \partial x_n} \\
+\frac{\partial ^2 f(\mathbf{x}) }{\partial x_2 \partial x_1} & \frac{\partial ^2 f(\mathbf{x}) }{\partial x_2^2} & \dots & \frac{\partial ^2 f(\mathbf{x}) }{\partial x_2 \partial x_n} \\
+\vdots & \vdots & \dots & \vdots \\
+\frac{\partial ^2 f(\mathbf{x}) }{\partial x_n \partial x_1} & \frac{\partial ^2 f(\mathbf{x}) }{\partial x_n \partial x_2} & \dots & \frac{\partial ^2 f(\mathbf{x}) }{\partial x_n^2} \\ 
+\end{bmatrix} = \mathbf{0}
+++++
+
+The Hessian of linear functions is stem:[\mathbf{0}].
+
+*Example 02:*
+
+Let stem:[f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\top \mathbf{P} \mathbf{x} + \mathbf{q}^\top \mathbf{x} + r]. Find the Hessian of stem:[f]. Assume stem:[\mathbf{P}] is symmetric.
+
+We know that the Hessian of the linear term and the constant term are the matrix stem:[\mathbf{0}]. Let stem:[g(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\top \mathbf{P} \mathbf{x} = \frac{1}{2} \sum_{i,j} x_i x_j P_{ij}]. We know from our previous section that
+
+[stem]
+++++
+\frac{\partial g(\mathbf{x})}{\partial x_i} = P_{i1} x_1 + P_{i2} x_2 + \dots + P_{in} x_n = \mathbf{Px}\,|_i
+++++
+
+On differentiating this again
+
+[stem]
+++++
+\frac{\partial^2 g(\mathbf{x})}{\partial x_j \partial x_i} = P_{ij} = \mathbf{P}\,|_{i,j}
+++++
+
+This gives us stem:[\nabla^2 f(\mathbf{x}) = \mathbf{P}]. Hence the Hessian of stem:[f] is simply the matrix stem:[\mathbf{P}]. This is a constant matrix, it doesn't depend on stem:[\mathbf{x}]. The second derivative of this function is a constant.
+
+====
+Read this later:
+
+A quadratic has a minima if and only if stem:[\mathbf{P}] is PSD. If  stem:[\mathbf{P}] is PSD, then all the points stem:[\mathbf{x}_0] at which the gradient is stem:[\mathbf{0}] are local minima.
+====
+
+*Example 03:*
+
+Let stem:[f(\mathbf{x}) = \sum_{i=1}^n x_i \log x_i], where stem:[x_i >0]. Find the Hessian of stem:[f].
+
+We know stem:[\nabla f(\mathbf{x}) = 1 + \log \mathbf{x}], that is, stem:[\frac{\partial f(\mathbf{x}) }{\partial x_i} = 1 + \log x_i].
+
+Then, stem:[\frac{\partial^2 f(\mathbf{x}) }{\partial x_i^2} = \frac{1}{x_i}] and stem:[\frac{\partial^2 f(\mathbf{x}) }{\partial x_j \partial x_i} = 0]. In general we can write this as
+
+[stem]
+++++
+\frac{\partial^2 f(\mathbf{x}) }{\partial x_i \partial x_j} = \begin{cases} \frac{1}{x_i} & i=j \\ 0 & i \ne j \end{cases}
+++++
+
+[stem]
+++++
+\nabla^2 f(\mathbf{x}) = 
+\begin{bmatrix}
+\frac{1}{x_1} & 0 & \dots & 0 \\
+0 & \frac{1}{x_2} & \dots & 0 \\
+\vdots & \vdots & \dots & \vdots \\
+0 & 0 & \dots & \frac{1}{x_n} \\
+\end{bmatrix}
+++++
+
+Here the Hessian matrix is not a constant. This function's curvature (the Hessian matrix) changes with stem:[\mathbf{x}].
+
+====
+Read this later:
+
+The Hessian of the negative entropy function is always PSD. Such functions are called as convex functions.
+====
+
+IMPORTANT: Look for the quadratic approximation at a point in a general vector space at 2:42:00.
+
+== Hessian Matrix ==
+The hessian matrix of a function stem:[f] at stem:[\mathbf{x}_0] talks about the curvature of the function at stem:[\mathbf{x}_0]. For a given function, the gradient can be stem:[\mathbf{0}] vector at a point stem:[\mathbf{x}_0]. But it may be a local minimum or local maximum. To check that we can check the "sign" of the Hessian matrix. If the curvature along all the directions is non-negative, we can say that the point is a local minimum.
+
+Let stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}]. Say we are at stem:[\mathbf{x}_0 \in \mathbb{R}^n] and we are given a direction stem:[\mathbf{u} \in \mathbb{R}^n]. Let's restrict the movement along the stem:[\mathbf{u}] direction. We end up considering this restricted function stem:[f(\mathbf{x}_0 + h \mathbf{u})] where stem:[h] is a scalar, and this is a function of a single variable stem:[h].
+
+[stem]
+++++
+g(h) \equiv f(\mathbf{x}_0 + h \mathbf{u})
+++++
+
+To compute the double derivative of this function, we can use the following theorem which says both the quantities are the same.
+
+====
+[stem]
+++++
+g''(h) = \mathbf{u}^\top \nabla^2 f(\mathbf{x}_0 + h \mathbf{u}) \mathbf{u}
+++++
+====
+
+Say we are at stem:[\mathbf{x}_0]. Now we have two directions (left to it and right to it). If the function is increasing instantaneously in both these directions, then we get stem:[g''(0) \geq 0].
+
+image::.\images\hessian_01.png[align='center', 400, 300]
+
+If this holds true for all possible directions stem:[\mathbf{u}] at stem:[\mathbf{x}_0], then we say stem:[\mathbf{u}^\top \nabla^2 f(\mathbf{x}_0) \mathbf{u} \geq 0] for all stem:[\mathbf{u}]. This means that if the Hessian matrix of stem:[f] at stem:[\mathbf{x}_0] is positive semi-definite, then the point stem:[\mathbf{x}_0] is the local minima.

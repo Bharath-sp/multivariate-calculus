@@ -1,0 +1,140 @@
+= Optimization Formulation =
+:doctype: book
+:author: Bharath Kumar S P
+:email: bharath030195@gmail.com
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Formulation ==
+The language used to express the optimization problem mathematically is called as Mathematical programs (MP). The structure of a valid mathematical program is
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{x} \in D} & \hspace{1cm} f(\mathbf{x}) \\
+& \text{ s.t. } g_1(\mathbf{x}) \leq 0, g_2(\mathbf{x}) \leq 0, \dots, g_m(\mathbf{x}) \leq 0
+\end{align*}
+++++
+
+* Here stem:[\mathbf{x}] is the variable of the MP.
+* stem:[f(\mathbf{x})] is the objective function. This defines the criteria of the optimization.
+* We may have some constraints on the variable. We typically specify stem:[m] inequality constraints. Here stem:[m] cannot be infinity.
+* We should specify the domain of the variable. This domain is the common domain of all the functions (objective and constraints). This common domain stem:[D] should be specified under stem:[\min].
+
+*Example 01:*
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{w} \in \mathbb{R}^n} & \hspace{1cm} \mathbf{w}^\top \mathbf{x} + b \\
+& \text{ s.t. } -w_1 \leq 0, -w_2 \leq 0, \dots, -w_n \leq 0
+\end{align*}
+++++
+
+Here the variable of the MP is stem:[\mathbf{w}]. And stem:[\mathbf{x}] and stem:[b] are given, fixed constant.
+
+*Example 02:*
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{p} \in \mathbb{R}^n_+} & \hspace{1cm} - \sum_{i=1}^n p_i \log p_i \\
+& \text{ s.t. } \mathbf{w}^\top \mathbf{p} -10 \leq 0
+\end{align*}
+++++
+
+Here the variable of the MP is stem:[\mathbf{p}]. And stem:[\mathbf{w}] is a given, fixed constant. Here our domain is the positive vectors.
+
+*Example 03:*
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{p} \in \mathbb{R}^n} & \hspace{1cm} - \sum_{i=1}^n p_i \log p_i \\
+& \text{ s.t. } \mathbf{w}^\top \mathbf{p} -10 \leq 0,  -p_1 \leq 0, \dots, -p_n \leq 0
+\end{align*}
+++++
+
+This is not a valid mathematical program because the objective function is not defined for some elements in the domain.
+
+The meaning of the symbol `min`: It is the infimum of a set of values.
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{x} \in D} & \hspace{1cm} f(\mathbf{x}) \\
+& \text{ s.t. } g_1(\mathbf{x}) \leq 0, g_2(\mathbf{x}) \leq 0, \dots, g_m(\mathbf{x}) \leq 0 \\
+ \\
+& \equiv inf(\{f(\mathbf{x}) \,|\, \mathbf{x} \in D, g_i(\mathbf{x}) \leq 0 \forall i\})
+\end{align*} 
+++++
+
+The set stem:[\mathcal{F} \equiv \{\mathbf{x} \in D, g_i(\mathbf{x}) \leq 0 \forall i\}] is called as the feasibility set associated with the MP. For each element stem:[\mathbf{x}] in the feasibility set, compute stem:[f(\mathbf{x})]. We get a set of objective values, a set of real numbers. For a set of real numbers, we can *always* find the infimum and supremum. It could be stem:[\infty], but they are well-defined. The infimum is the greatest lower bound.
+
+*Example 01:*
+
+[stem]
+++++
+\min_{x \in \mathbb{R}} \hspace{1cm} 2x^2 + 3
+++++
+
+The feasibility set is stem:[\mathcal{F} = \{x \in \mathbb{R}\}]. For each element stem:[\mathbf{x}] in the feasibility set, compute stem:[f(\mathbf{x})]. We get a set stem:[[3, \infty)]. The infimum of this set is 3. The value of this MP is 3.
+
+*Example 02:*
+
+[stem]
+++++
+\min_{x \in (0, \infty)} \hspace{1cm} 2x^2 + 3
+++++
+
+The feasibility set is stem:[\mathcal{F} = (0, \infty)]. For each element stem:[\mathbf{x}] in the feasibility set, compute stem:[f(\mathbf{x})]. It turns out that the set of function values for stem:[x \in \mathcal{F}] is stem:[(3, \infty)]. The infimum of this set is 3. The value of this MP is 3.
+
+== Arg Min ==
+Arg min is the set of all variables in the feasibility set where the value of the MP is attained. Say we have a MP whose value is A. Then 
+
+[stem]
+++++
+\arg \min \text{MP} = \{\mathbf{x} \in \mathcal{F} \, | \, f(\mathbf{x}) = A \}
+++++
+
+It is the set of all variables in the feasibility set (a subset of the feasibility set) for which the infimum of the objective function is achieved.
+
+*Example 01:*
+
+[stem]
+++++
+\arg \min_{x \in \mathbb{R}} \hspace{1cm} 2x^2 + 3
+++++
+
+The feasibility set is stem:[\mathcal{F} = \{x \in \mathbb{R}\}]. The value of this MP is 3. The arg min is the set of all points for which the function value is 3. Hence stem:[\arg \min_{x \in \mathbb{R}} 2x^2 + 3 = \{0\}]. It is set of all optimal solutions. Such stem:[\mathbf{x}]'s are called as optimizers or minimizers.
+
+image::.\images\optimization_01.png[align='center', 400, 300]
+
+*Example 02:*
+
+[stem]
+++++
+\arg \min_{x \in (0, \infty)} \hspace{1cm} 2x^2 + 3
+++++
+
+The feasibility set is stem:[\mathcal{F} = (0, \infty)]. The value of this MP is 3. Then
+
+[stem]
+++++
+\arg \min \text{MP} = \{x >0  \, | \, 2x^2 + 3 = 3 \} = \phi
+++++
+
+On solving the quadratic equation, we get stem:[x=0]. So we are looking for stem:[\{x >0  \, | \, x=0 \}], which cannot be achieved. Hence the arg min for this MP is the null set. There is no optimal solution for this MP.
+
+IMPORTANT: The value of the MP is always defined, but the optimal solution may or may not exists. The optimal solution can be stem:[0,1,2, \dots, \infty].
+
+For `max`, we look for the supermum of the function values set. The infimum of a set stem:[S] is stem:[inf(S) = - sup(-S)], where stem:[-S = \{-x \,|\, x \in S\}].
+
+== Properties of MPs ==
+We can relate MPs by their values. Two MPs are said to be equal if their values equal. We say MP1 stem:[>] MP2, if the value of MP1 is greater than the value of MP2. We can also write expressions involving MPs: stem:[\text{MP1}^2 + \text{MP2}], etc.
+
+* Say we have MP1 as stem:[\min_{x \geq 0} 2x^2 + 3]. The value of the MP is 3.
+* MP2 is stem:[\min_{x \geq 0} \sqrt{2x^2 + 3}]. The value of the MP is stem:[\sqrt{3}].
+
+Their values are not the same, but the stem:[\arg \min] for both the MPs is stem:[\{0\}]. Based on the optimal solutions also, we say that the MPs are equivalent.

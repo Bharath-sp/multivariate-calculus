@@ -1,0 +1,159 @@
+= Introduction =
+:doctype: book
+:author: Bharath Kumar S P
+:email: bharath030195@gmail.com
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Functions ==
+A function is defined between two sets, stem:[f: \mathcal{D} \rightarrow \mathcal{R}]. It is just a mapping with some unique properties. The graph of a function stem:[f: \mathbb{R} \rightarrow \mathbb{R}] is defined as
+
+[stem]
+++++
+gr(f) \equiv \{(x,y) \,|\, x \in \mathcal{D}, y=f(x)\}
+++++
+
+* The epi-graph of a function is the set of all points including the graph and above the function.
++
+[stem]
+++++
+epi(f) \equiv \{(x,y) \,|\, x \in \mathcal{D}, y \geq f(x)\}
+++++
+
+* The level-set of a function stem:[f] at some level stem:[\alpha] is
++
+[stem]
+++++
+\mathcal{L}_f(\alpha) \equiv \{x \in \mathcal{D} \,|\, f(x) \leq \alpha\}
+++++
++
+First cut the stem:[f(x)] axis at stem:[\alpha]. And look for the points that achieve stem:[f(x) \leq \alpha]. It is a subset of the domain. stem:[\mathcal{L}_f(4)] is the circle of radius 2. As we increase stem:[\alpha], we get concentric circles.
+
+image::.\images\functions_01.png[align='center', 800, 500]
+
+* When we change the inequality to equality, we get contour of the function at stem:[\alpha]. It is the set of all points in the domain whose function value is equal to a particular value stem:[\alpha].
+
+== Continuity ==
+Suppose we have a sequence of vectors stem:[\{\mathbf{x_n}\}] converging to stem:[\mathbf{x}], i.e., for every tolerance stem:[\boldsymbol{\epsilon}], we can find a stage in the sequence beyond which the distance between stem:[\mathbf{x_n}] and stem:[\mathbf{x}] is less than stem:[\boldsymbol{\epsilon}]. This is true for any stem:[\boldsymbol{\epsilon}]. Here the distance is the inner product induced distance.
+
+The function stem:[f(\mathbf{x})] is said to be continuous at stem:[\mathbf{x}] if for any sequence
+
+* Take any sequence stem:[\{\mathbf{x_n}\}] that converges to this stem:[\mathbf{x}].
+* For each element in the sequence, compute the corresponding function value stem:[\{f(\mathbf{x_n})\}]. This is a sequence of real numbers. This should converge to stem:[f(\mathbf{x})]. If this happens for any sequence stem:[\{\mathbf{x_n}\}] converging to stem:[\mathbf{x}], then we say the function stem:[f] is continuous at stem:[\mathbf{x}].
+
+====
+A function stem:[f] is continuous at stem:[\mathbf{x} \in \mathcal{D}] iff for any sequence stem:[\{\mathbf{x_n}\} \rightarrow \mathbf{x}], we have stem:[\{f(\mathbf{x_n})\}\rightarrow f(\mathbf{x})].
+====
+
+== Lipschitz Continuity ==
+This is a stronger notion of continuity. All Lipschitz Continuous functions are continuous, but not all continuous functions are Lipschitz continuous. A function stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}^m] is stem:[L]-Lipschitz continuous iff
+
+[stem]
+++++
+\| f(\mathbf{x}) - f(\mathbf{y}) \| \leq L \| \mathbf{x} - \mathbf{y} \| \hspace{1cm} \forall \mathbf{x}, \mathbf{y} \in \mathcal{D}
+++++
+
+where stem:[L] is a positive real number, stem:[0 < L < \infty]. Note that, the norm appearing in the LHS and RHS need not be the same
+if the domain and co-domain belong to different spaces.
+
+Take any two points stem:[\mathbf{x}, \mathbf{y} \in \mathcal{D}], look at their difference in the function values. If the difference in the function values is not too high with respect to how far the points themselves are, i.e., if we are able to bound the function growth in terms of the distance between the points, then the function is Lipschitz continuous.
+
+The stem:[L] tells us how fast the function grows. The higher the stem:[L], the steeper the function will be. If stem:[L] is zero, the function is not growing at all.
+
+*Example 01:* 
+
+Let stem:[f(x) = 2x+3]. To show that the function is Lipschitz continuous, we need to find a bound stem:[L].
+
+[stem]
+++++
+|f(x) - f(y) | = |2x+3 - 2y-3| = |2x-2y| = 2|x-y|
+++++
+
+Then stem:[|f(x) - f(y)| \leq 2|x-y|]. The function is 2-Lipschitz continuous. As we can observe the Lipschitz constant for a simple linear function is just its slope.
+
+NOTE: We can also write stem:[|f(x) - f(y)| \leq 4|x-y|, \leq 5|x-y|, \dots]. But here we are looking for the least stem:[L].
+
+*Example 02:* 
+
+Let stem:[f(\mathbf{x}) = \mathbf{w}^\top \mathbf{x}], which is a linear function that takes n-dimensional input and outputs a real number. To show that the function is Lipschitz continuous, we need to find a bound stem:[L].
+
+[stem]
+++++
+|f(\mathbf{x}) - f(\mathbf{y})| = | \mathbf{w}^\top \mathbf{x} -  \mathbf{w}^\top \mathbf{y}| = | \mathbf{w}^\top (\mathbf{x-y})| \leq \|\mathbf{w}\| \|\mathbf{x-y}\|
+++++
+
+The last inequality is by the Cauchy-Schwartz inequality.
+
+*Example 03:* 
+
+Let stem:[f(\mathbf{x}) = \mathbf{A} \mathbf{x}], which is a linear function that takes n-dimensional input and outputs a m-dimensional vector. Let stem:[\mathbf{A}] be a symmetric matrix. To show that the function is Lipschitz continuous, we need to find a bound stem:[L], which is a scalar.
+
+[stem]
+++++
+\|\mathbf{Ax} - \mathbf{Ay} \| = \|\mathbf{A} (\mathbf{x} - \mathbf{y}) \|
+++++
+
+* By SVD, we can write stem:[\mathbf{A} = \sum_{i=1}^r \sigma_i \mathbf{u}_i \mathbf{v}_i^\top].
+* stem:[(\mathbf{x} - \mathbf{y})] is a vector in the input space, stem:[\mathbb{R}^n]. So it can be written as stem:[\mathbf{x} - \mathbf{y} = \sum_{j=1}^n \lambda_j \mathbf{v}_j].
+
+[stem]
+++++
+\begin{align*}
+\mathbf{A} (\mathbf{x} - \mathbf{y}) & = \sum_{i=1}^r \sigma_i \mathbf{u}_i \mathbf{v}_i^\top \sum_{j=1}^n \lambda_j \mathbf{v}_j \\
+& = \sum_{i=1}^r \sum_{j=1}^n \lambda_j \sigma_i \mathbf{u}_i \mathbf{v}_i^\top \mathbf{v}_j \\
+& = \sum_{i=1}^r \lambda_i \sigma_i \mathbf{u}_i && \text{ as } V \text{ vectors are orthogonal } \\
+\end{align*}
+++++
+
+This is just a linear combination of stem:[\mathbf{u}_i]'s. Then
+
+[stem]
+++++
+\begin{align*}
+\| \mathbf{A} (\mathbf{x} - \mathbf{y}) \| & = \|\sum_{i=1}^r \lambda_i \sigma_i \mathbf{u}_i \| \\
+& = \sqrt{ \langle \sum_{i=1}^r \lambda_i \sigma_i \mathbf{u}_i, \sum_{i=1}^r \lambda_i \sigma_i \mathbf{u}_i \rangle} = \sqrt{ (\sum_{i=1}^r \lambda_i \sigma_i \mathbf{u}_i)^\top (\sum_{i=1}^r \lambda_i \sigma_i \mathbf{u}_i )} \\
+& = \sqrt{ \sum_{i=1}^r \lambda_i \sigma_i \mathbf{u}_i^\top (\sum_{i=1}^r \lambda_i \sigma_i \mathbf{u}_i )} = \sqrt{ \sum_{i=1}^r \lambda_i^2 \sigma_i^2 } \\
+\end{align*}
+++++
+
+Here stem:[\lambda_i] changes as per the vector stem:[(\mathbf{x} - \mathbf{y})], the stem:[\sigma_i] are fixed.
+
+[stem]
+++++
+\begin{align*}
+\| \mathbf{A} (\mathbf{x} - \mathbf{y}) \| & \leq \sqrt{ \sum_{i=1}^r \lambda_i^2 \sigma^2_{max} } \\
+& = \sqrt{ \sigma^2_{max} \sum_{i=1}^r \lambda_i^2} = \sigma_{max} \sqrt{ \sum_{i=1}^r \lambda_i^2}
+\end{align*}
+++++
+
+as singular values are always non-negative, stem:[\sqrt{ \sigma^2_{max}} = \sigma_{max}].
+
+NOTE: For example: stem:[\sqrt{3\lambda_1^2 + 4\lambda_2^2} \leq \sqrt{4\lambda_1^2 + 4\lambda_2^2} = \sqrt{4} \sqrt{\lambda_1^2 + \lambda_2^2}]
+
+Hence, we are able to show stem:[\| \mathbf{A} (\mathbf{x} - \mathbf{y}) \| \leq \sigma_{max} \|\mathbf{x} - \mathbf{y} \|]. Thus the Lipschitz constant is the highest singular value of the matrix stem:[\mathbf{A}].
+
+*Example 04:* 
+
+Let stem:[f(x) = x^2]. To show that the function is Lipschitz continuous, we need to find a bound stem:[L].
+
+stem:[|x^2 -y^2| = |x+y| |x-y|]. This quantity can never be 
+
+[stem]
+++++
+|x+y| |x-y| \not \leq L | x-y|
+++++
+
+For any given stem:[L], we can pick stem:[x,y] such that stem:[|x+y| > L]. So by contradiction, we say that this function stem:[f] is not Lipschitz continuous. This happens because the function grows too steeply compared to how stem:[x] grows.
+
+But we restrict the domain of the function to stem:[x \in [-1,1\]]. Then the function is Lipschitz continuous because stem:[|x+y|] is upper bounded by 2. So the Lipschitz constant is 2.
+
+====
+Theorem that helps us find the Lipschitz constant:
+
+If stem:[f] is differentiable, then say the magnitude of the derivative is bounded by some number, stem:[|f'(x)| \leq L] for all stem:[x]. Then such a number stem:[L] is the Lipschitz constant.
+====
+
+*Example 05:* 
+
+Let stem:[f(x) = x \log x] where stem:[x >0]. Then stem:[f'(x) = 1 + \log x]. We need to find a constant such that stem:[|1 + \log x| \leq L] for all stem:[x>0]. We cannot find such a stem:[L]. Hence the function stem:[f(x)] is not Lipschitz continuous.
