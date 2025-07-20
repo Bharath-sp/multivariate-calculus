@@ -1,0 +1,11 @@
+= Properties of Convex Functions =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Properties of Convex Functions ==
+* Convex functions are continuous in the interior of the domain of the definition of the function. If there is any discontinuity of a convex function, it must be occurring at the boundary of the domain of the definition of the function.
+
+* Any convex function is locally Lipschitz continuous.
+* Any convex function which is not given to be differentiable, still has directional derivative at any interior point of the domain of the definition of the function.

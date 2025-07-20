@@ -1,63 +1,54 @@
-= Introduction =
+= Continuity of Functions =
 :doctype: book
-:author: Bharath Kumar S P
-:email: bharath030195@gmail.com
 :stem: latexmath
 :eqnums:
 :toc:
 
-== Functions ==
-A function is defined between two sets, stem:[f: \mathcal{D} \rightarrow \mathcal{R}]. It is just a mapping with some unique properties. The graph of a function stem:[f: \mathbb{R} \rightarrow \mathbb{R}] is defined as
+When is a function said continuous? What conditions must a function satisfy to be considered continuous?
+
+== Definition of Continuity ==
+A function stem:[f: \mathbb{R}^n \to \mathbb{R}^m] is continuous at stem:[\mathbf{x}_0 \in \text{dom } f] if
+
+* stem:[f] is defined at stem:[\mathbf{x}_0].
+* The limit stem:[\lim_{\mathbf{x} \to \mathbf{x}_0} f(\mathbf{x})] exists.
+* The limit equals the function value, stem:[\lim_{\mathbf{x} \to \mathbf{x}_0} f(\mathbf{x}) = f(\mathbf{x}_0)].
+
+A function is continuous if it is continuous at every point of its domain. An alternate definition of continuity is as follows.
+
+*stem:[\delta-\epsilon] definition of continuity:*
+
+A function stem:[f: \mathbb{R}^n \to \mathbb{R}^m] is continuous at stem:[\mathbf{x}_0 \in \text{dom } f] if for all stem:[\epsilon > 0] there exists a stem:[\delta] such that
 
 [stem]
 ++++
-gr(f) \equiv \{(x,y) \,|\, x \in \mathcal{D}, y=f(x)\}
+\mathbf{x} \in \text{dom } f, \hspace{1cm} \|\mathbf{x} -  \mathbf{x}_0\|_2 \leq \delta \implies \|f(\mathbf{x}) - f(\mathbf{x}_0) \|_2 \leq \epsilon
 ++++
 
-* The epi-graph of a function is the set of all points including the graph and above the function.
-+
+Continuity can also be described in terms of limits: whenever the sequence stem:[\mathbf{x}_1, \mathbf{x}_2, \dots, \in \text{dom } f ] converges to a point stem:[\mathbf{x}_0 \in \text{dom } f], the sequence stem:[f(\mathbf{x}_1), f(\mathbf{x}_2), \dots,] converges to stem:[f(\mathbf{x}_0)], i.e.,
+
 [stem]
 ++++
-epi(f) \equiv \{(x,y) \,|\, x \in \mathcal{D}, y \geq f(x)\}
+f(\lim_{n \to \infty} \mathbf{x}_n) = \lim_{n \to \infty} f(\mathbf{x}_n) 
 ++++
-
-* The level-set of a function stem:[f] at some level stem:[\alpha] is
-+
-[stem]
-++++
-\mathcal{L}_f(\alpha) \equiv \{x \in \mathcal{D} \,|\, f(x) \leq \alpha\}
-++++
-+
-First cut the stem:[f(x)] axis at stem:[\alpha]. And look for the points that achieve stem:[f(x) \leq \alpha]. It is a subset of the domain. stem:[\mathcal{L}_f(4)] is the circle of radius 2. As we increase stem:[\alpha], we get concentric circles.
-
-image::.\images\functions_01.png[align='center', 800, 500]
-
-* When we change the inequality to equality, we get contour of the function at stem:[\alpha]. It is the set of all points in the domain whose function value is equal to a particular value stem:[\alpha].
-
-== Continuity ==
-Suppose we have a sequence of vectors stem:[\{\mathbf{x_n}\}] converging to stem:[\mathbf{x}], i.e., for every tolerance stem:[\boldsymbol{\epsilon}], we can find a stage in the sequence beyond which the distance between stem:[\mathbf{x_n}] and stem:[\mathbf{x}] is less than stem:[\boldsymbol{\epsilon}]. This is true for any stem:[\boldsymbol{\epsilon}]. Here the distance is the inner product induced distance.
-
-The function stem:[f(\mathbf{x})] is said to be continuous at stem:[\mathbf{x}] if for any sequence
-
-* Take any sequence stem:[\{\mathbf{x_n}\}] that converges to this stem:[\mathbf{x}].
-* For each element in the sequence, compute the corresponding function value stem:[\{f(\mathbf{x_n})\}]. This is a sequence of real numbers. This should converge to stem:[f(\mathbf{x})]. If this happens for any sequence stem:[\{\mathbf{x_n}\}] converging to stem:[\mathbf{x}], then we say the function stem:[f] is continuous at stem:[\mathbf{x}].
 
 ====
-A function stem:[f] is continuous at stem:[\mathbf{x} \in \mathcal{D}] iff for any sequence stem:[\{\mathbf{x_n}\} \rightarrow \mathbf{x}], we have stem:[\{f(\mathbf{x_n})\}\rightarrow f(\mathbf{x})].
+A function stem:[f] is continuous at stem:[\mathbf{x}_0 \in \text{dom } f] iff for any sequence stem:[\{\mathbf{x_n}\} \rightarrow \mathbf{x}_0], we have stem:[\{f(\mathbf{x_n})\}\rightarrow f(\mathbf{x}_0)].
 ====
+
+* Take any sequence stem:[\{\mathbf{x_n}\}] that converges to this stem:[\mathbf{x}_0].
+* For each element in the sequence, compute the corresponding function value stem:[\{f(\mathbf{x_n})\}]. This is a sequence of real numbers. This should converge to stem:[f(\mathbf{x}_0)]. If this happens for any sequence stem:[\{\mathbf{x_n}\}] converging to stem:[\mathbf{x}_0], then we say the function stem:[f] is continuous at stem:[\mathbf{x}_0].
 
 == Lipschitz Continuity ==
 This is a stronger notion of continuity. All Lipschitz Continuous functions are continuous, but not all continuous functions are Lipschitz continuous. A function stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}^m] is stem:[L]-Lipschitz continuous iff
 
 [stem]
 ++++
-\| f(\mathbf{x}) - f(\mathbf{y}) \| \leq L \| \mathbf{x} - \mathbf{y} \| \hspace{1cm} \forall \mathbf{x}, \mathbf{y} \in \mathcal{D}
+\| f(\mathbf{x}) - f(\mathbf{y}) \| \leq L \| \mathbf{x} - \mathbf{y} \| \hspace{1cm} \forall \mathbf{x}, \mathbf{y} \in \text{dom } f
 ++++
 
-where stem:[L] is a positive real number, stem:[0 < L < \infty]. Note that, the norm appearing in the LHS and RHS need not be the same
-if the domain and co-domain belong to different spaces.
+where stem:[L] is a positive real number, stem:[0 < L < \infty]. Note that, the norm appearing in the LHS and RHS do not need to be the same if the domain and co-domain belong to different spaces.
 
-Take any two points stem:[\mathbf{x}, \mathbf{y} \in \mathcal{D}], look at their difference in the function values. If the difference in the function values is not too high with respect to how far the points themselves are, i.e., if we are able to bound the function growth in terms of the distance between the points, then the function is Lipschitz continuous.
+Take any two points stem:[\mathbf{x}, \mathbf{y} \in \text{dom } f], look at their difference in the function values. If the difference in the function values is not too high with respect to how far the points themselves are, i.e., if we are able to bound the function growth in terms of the distance between the points, then the function is Lipschitz continuous.
 
 The stem:[L] tells us how fast the function grows. The higher the stem:[L], the steeper the function will be. If stem:[L] is zero, the function is not growing at all.
 
@@ -151,9 +142,14 @@ But we restrict the domain of the function to stem:[x \in [-1,1\]]. Then the fun
 ====
 Theorem that helps us find the Lipschitz constant:
 
-If stem:[f] is differentiable, then say the magnitude of the derivative is bounded by some number, stem:[|f'(x)| \leq L] for all stem:[x]. Then such a number stem:[L] is the Lipschitz constant.
+If stem:[f] is differentiable, then say the magnitude of the derivative is bounded by some number, stem:[|f'(\mathbf{x})| \leq L] for all stem:[\mathbf{x} \in \text{dom } f]. Then such a number stem:[L] is the Lipschitz constant.
 ====
 
 *Example 05:* 
 
 Let stem:[f(x) = x \log x] where stem:[x >0]. Then stem:[f'(x) = 1 + \log x]. We need to find a constant such that stem:[|1 + \log x| \leq L] for all stem:[x>0]. We cannot find such a stem:[L]. Hence the function stem:[f(x)] is not Lipschitz continuous.
+
+[bibliography]
+== References ==
+
+* Boyd, S. P., & Vandenberghe, L. (2004). Convex Optimization. Cambridge University Press.

@@ -1,0 +1,127 @@
+= Completing the Squares =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Univariate Case ==
+Equations of the form
+
+[stem]
+++++
+ax^2+bx+c=0, \hspace{1cm} a \ne 0
+++++
+
+are quadratic equations. We can solve quadratic equations by completing the squares method. The objective is to transform the given quadratic polynomial stem:[ax^2+bx+c] to a form stem:[a(x-d)^2 + e]. Let's expand this form and compare the coefficients.
+
+[stem]
+++++
+\begin{align*}
+a(x-d)^2 + e & = a(x^2 -2xd + d^2) + e \\
+& = ax^2 -2adx + ad^2 + e
+\end{align*}
+++++
+
+On comparing this with stem:[ax^2+bx+c], we get
+
+[stem]
+++++
+a=a; \hspace{1cm} -2ad = b \implies d = -\frac{b}{2a};  \hspace{1cm} c = ad^2 + e \implies e = c - \frac{b^2}{4a}
+++++
+
+*Example:*
+
+Let the quadratic polynomial be stem:[5x^2-3x + 7]. Here stem:[a=5, b=-3, c=7].
+
+* stem:[d = -\frac{b}{2a} = -\frac{-3}{10} = \frac{3}{10}].
+* stem:[e = c - \frac{b^2}{4a} = 7 - \frac{9}{20} = \frac{131}{20}].
+
+Then, the completed square form is stem:[5 (x- \frac{3}{10})^2 + \frac{131}{20}].
+
+== Multivariate Case ==
+In the multivariate case, the quadratic polynomial is stem:[\mathbf{x}^\top \mathbf{Ax} + \mathbf{x}^\top \mathbf{b} + c]. Assume the matrix stem:[\mathbf{A}] is symmetric and invertible.
+
+The objective is to transform this to stem:[(\mathbf{x}-\mathbf{d})^\top \mathbf{A} (\mathbf{x}-\mathbf{d}) + e]. Let us expand it and compare the coefficients.
+
+[stem]
+++++
+\begin{align*}
+(\mathbf{x}-\mathbf{d})^\top \mathbf{A} (\mathbf{x}-\mathbf{d}) + e & = (\mathbf{x}^\top-\mathbf{d}^\top) \mathbf{A} (\mathbf{x}-\mathbf{d}) + e \\
+& = \mathbf{x}^\top \mathbf{Ax} - \mathbf{x}^\top \mathbf{Ad} - \mathbf{d}^\top \mathbf{Ax} + \mathbf{d}^\top \mathbf{A}\mathbf{d} + e\\
+& = \mathbf{x}^\top \mathbf{Ax} - \mathbf{x}^\top \mathbf{Ad}  -\mathbf{x}^\top \mathbf{A}^\top \mathbf{d} + \mathbf{d}^\top \mathbf{A}\mathbf{d} + e && \text{ as it is a scalar} \\
+& = \mathbf{x}^\top \mathbf{Ax} - 2\mathbf{x}^\top \mathbf{Ad} + \mathbf{d}^\top \mathbf{A}\mathbf{d} + e && \text{ assuming } \mathbf{A}^\top = \mathbf{A} \\
+\end{align*}
+++++
+
+On comparing the coefficients
+
+[stem]
+++++
+\mathbf{A} = \mathbf{A}; \hspace{1cm} \mathbf{b} = -2\mathbf{Ad} \implies \mathbf{d} = -\frac{1}{2} \mathbf{A}^{-1} \mathbf{b}
+++++
+
+[stem]
+++++
+\begin{align*}
+c & = \mathbf{d}^\top \mathbf{A}\mathbf{d} + e \\
+& = (-\frac{1}{2} \mathbf{A}^{-1} \mathbf{b})^\top \mathbf{A} (-\frac{1}{2} \mathbf{A}^{-1} \mathbf{b}) + e \\
+& = (-\frac{1}{2} \mathbf{b}^\top \mathbf{A}^{-\top} ) \mathbf{A} (-\frac{1}{2} \mathbf{A}^{-1} \mathbf{b}) + e \\
+& = \frac{1}{4} \mathbf{b}^\top \mathbf{A}^{-\top} \mathbf{A} \mathbf{A}^{-1} \mathbf{b} + e
+\end{align*}
+++++
+
+As stem:[\mathbf{A}] is symmetric, its inverse is also symmetric stem:[(\mathbf{A}^{-1})^\top = \mathbf{A}^{-1}]. Then
+
+[stem]
+++++
+\begin{align*}
+c & = \frac{1}{4} \mathbf{b}^\top \mathbf{A}^{-1} \mathbf{A} \mathbf{A}^{-1} \mathbf{b} + e \\
+c & = \frac{1}{4} \mathbf{b}^\top \mathbf{A}^{-1} \mathbf{b} + e \implies e = c - \frac{1}{4} \mathbf{b}^\top \mathbf{A}^{-1} \mathbf{b}
+\end{align*}
+++++
+
+*Example:*
+
+Let the quadratic polynomial be
+
+[stem]
+++++
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix}^\top \begin{bmatrix}
+1 & 1 \\
+1 & 2
+\end{bmatrix} \begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix} + \begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix}^\top  \begin{bmatrix}
+2 \\
+4
+\end{bmatrix} + 3
+++++
+
+Here stem:[\mathbf{A}] is symmetric and invertible. stem:[\mathbf{A}^{-1} = \begin{bmatrix}
+2 & -1 \\
+-1 & 1
+\end{bmatrix}]
+
+* stem:[\mathbf{d} = -\frac{1}{2} \mathbf{A}^{-1} \mathbf{b} = -\frac{1}{2} \begin{bmatrix}
+2 & -1 \\
+-1 & 1
+\end{bmatrix} \begin{bmatrix} 2 \\ 4 \end{bmatrix} = \begin{bmatrix} 0 \\ -1 \end{bmatrix} ].
+
+* stem:[e = c - \frac{1}{4} \mathbf{b}^\top \mathbf{A}^{-1} \mathbf{b} = 1]
+
+Then, the completed square form is
+
+[stem]
+++++
+\left(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} - \begin{bmatrix} 0 \\ -1 \end{bmatrix} \right)^\top \begin{bmatrix}
+1 & 1 \\
+1 & 2
+\end{bmatrix} \left(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} - \begin{bmatrix} 0 \\ -1 \end{bmatrix} \right) + 1
+++++

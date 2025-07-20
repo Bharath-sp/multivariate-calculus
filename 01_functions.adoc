@@ -1,0 +1,225 @@
+= Functions =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+A formal definition of functions. And when do we call a function linear, affine, or quadratic?
+
+== What are Functions? ==
+A function is defined between two sets, stem:[A] and stem:[B]. It is just a mapping with some unique properties. We write stem:[f: A \rightarrow B] to mean that stem:[f] is a function on the set stem:[\mathcal{D} \subseteq A] into the set stem:[\mathcal{R} \subseteq B]. The set stem:[\mathcal{D}] is the domain, the set stem:[B] is the codomain, and the set stem:[\mathcal{R}] is the range of the function.
+
+* *Domain*: The set stem:[\mathcal{D}] contains all inputs stem:[\mathbf{x}] for which the function is defined. In particular, we can have stem:[\mathcal{D}] a proper subset of the set stem:[A].
+* *Codomain*: The set stem:[B] contains all potential outputs of the function, even if some elements of stem:[B] are never actually attained by stem:[f].
+* *Range*: The set stem:[\mathcal{R}] contains the actual outputs attained by stem:[f].
+
+Thus, the notation stem:[f: \mathbb{R}^n \to \mathbb{R}] means that stem:[f] maps (some) stem:[n-] vectors into (some) stem:[\mathbb{R}]; it does not mean that stem:[f(\mathbf{x})] is defined for every stem:[\mathbf{x} \in \mathbb{R}^n], and the stem:[f] outputs all scalar in stem:[\mathbb{R}].
+
+*Scalar-valued functions:*
+
+Let stem:[\mathcal{D} \subseteq \mathbb{R}^n]. A real valued scalar function stem:[f: \mathbb{R}^n \to \mathbb{R}] on stem:[\mathcal{D}] is a rule that assigns a real number
+
+[stem]
+++++
+y = f(x_1, \dots, x_n), \, x_i \in \mathbb{R}, \, \text{ for } i = 1,\dots,n
+++++
+
+for all element in stem:[\mathcal{D}]. Here stem:[\mathbf{x} = (x_1, \dots, x_n)] are independent variables and stem:[y] is a dependent variable.
+
+*Vector-valued functions:*
+
+A function stem:[f] that carries every element of stem:[\mathcal{D}] to some element in stem:[\mathbb{R}^m],  stem:[f: \mathbb{R}^n \to \mathbb{R}^m], that is, the function takes a stem:[n-] vector and outputs an stem:[m-] vector.
+
+* The domain of stem:[f] is stem:[\mathcal{D}] which is a set of all points stem:[\mathbf{x}] in stem:[\mathbb{R}^n] for which stem:[f(\mathbf{x})] is defined.
+
+* The range of stem:[f] is stem:[\mathcal{R}] which is a set of all points stem:[y] in stem:[\mathbb{R}] (in case of scalar-valued functions) or stem:[\mathbf{y}] in stem:[\mathbb{R}^m] (in case of vector-valued functions) such that stem:[\mathbf{y}=f(\mathbf{x})] for all stem:[\mathbf{x} \in \mathcal{D}].
+
+== Properties of Functions ==
+
+Let stem:[f: \mathbb{R}^n \to \mathbb{R}]
+
+* The *graph* of stem:[f] is defined as
+
+[stem]
+++++
+gr(f) \equiv \{(x_1, \dots, x_n,y) \,|\, \mathbf{x} \in \mathcal{D}, y=f(\mathbf{x})\}
+++++
+
+* The *epi-graph* of stem:[f] is the set of all points including the graph and above the function.
++
+[stem]
+++++
+epi(f) \equiv \{(x_1, \dots, x_n,y) \,|\, \mathbf{x} \in \mathcal{D}, y \geq f(\mathbf{x})\}
+++++
+
+* The *level-set* (contour) of stem:[f] at some level stem:[\alpha] is the set of points in the domain of the function where the function takes on a constant value stem:[\alpha]
++
+[stem]
+++++
+\mathcal{L}_f(\alpha) \equiv \{\mathbf{x} \in \mathcal{D} \,|\, f(\mathbf{x}) = \alpha\}
+++++
+
+*Example 1:* 
+
+Consider the function stem:[f(x_1, x_2) = x_1^2 + x_2^2]. Cut the stem:[f(\mathbf{x})] axis at stem:[\alpha=1]. And look for the points that achieve stem:[f(\mathbf{x}) = \alpha], that is, stem:[x_1^2 + x_2^2=1] to get the level set corresponding to value stem:[\alpha]. It is a subset of the domain.
+
+.Function stem:[f(\mathbf{x}) = x_1^2 + x_2^2] (left) and the contour curves corresponding to stem:[\alpha = 1,4,\dots] (right).
+image::.\images\contour_01.png[align='center', 500, 300]
+
+stem:[\mathcal{L}_f(4)] is the set of all points on the boundary of the circle of radius 2. As we increase stem:[\alpha], we get concentric circles.
+
+*Example 2:* 
+
+Consider the function stem:[f(x_1, x_2) = \cos x_1 \cdot \sin x_2].
+
+.Function stem:[f(x_1, x_2) = \cos x_1 \cdot \sin x_2] (left) and the contour curves corresponding to various stem:[\alpha] (right). Image Source: <<KhanAcademy>>.
+image::.\images\contour_02.png[align='center', 500, 300]
+
+CAUTION: Peaks and valleys can easily look very similar on a contour plot, and can only be distinguished by reading the labels.
+
+*Example 3:* 
+
+Consider a linear function stem:[f(x_1, x_2) = x_1 + 2x_2]
+
+.Function stem:[f(x_1, x_2) = x_1 + 2x_2] (left) and the contour lines corresponding to various stem:[\alpha] (right). Image Source: <<KhanAcademy>>
+image::.\images\contour_03.png[align='center', 500, 300]
+
+For functions of two variables, contour plots make it much easier to understand the "shape" of the function. From a contour plot
+
+* We can tell how steep a portion of the graph is by how close the contour curves are to one another. When they are far apart, it takes a lot of lateral distance to increase the function value, but when they are close, the function value increases quickly for small lateral increments.
+
+* The level sets associated with heights that approach a peak of the graph will look like smaller and smaller closed loops, each one encompassing the next. We can spot the maximum or minimum of a function using its contour plot.
+
+== Linear Functions ==
+A function stem:[f: \mathbb{R}^n \to \mathbb{R}] is said to be linear if it satifies
+
+* stem:[f(\mathbf{x}_1 + \mathbf{x}_2)= f(\mathbf{x}_1) + f(\mathbf{x}_2)] for any stem:[\mathbf{x}_1, \mathbf{x}_2] in the domain of the function.
+* For any stem:[\alpha \in \mathbb{R}], stem:[f(\alpha \mathbf{x}) = \alpha f(\mathbf{x})].
+
+*Example 01:*
+
+Consider the function stem:[f(\mathbf{x}) = w_1x_1 + w_2x_2 + \dots + w_n x_n = \mathbf{w}^\top \mathbf{x}] where stem:[x_1, \dots, x_n] are the elements of the vector stem:[\mathbf{x}] and stem:[w_i \in \mathbb{R}] for stem:[i=1,\dots,n] are the elements of the vector stem:[\mathbf{w}]. Note here that stem:[\mathbf{w}] is a constant and stem:[\mathbf{x}] is a variable. Prove that stem:[f] is a linear function in terms of stem:[\mathbf{x}].
+
+The domain of this function is stem:[\mathbb{R}^n]. Let stem:[\mathbf{x}_1 = (x_{11}, \dots, x_{1n}), \mathbf{x}_2 = (x_{21}, \dots, x_{2n}) \in \mathbb{R}^n]. Then, stem:[\mathbf{x}_1 + \mathbf{x}_2 = (x_{11} + x_{21}, \dots, x_{1n} + x_{2n}) \in \mathbb{R}^n].
+
+[stem]
+++++
+\begin{align*}
+f(\mathbf{x}_1 + \mathbf{x}_2) & = w_1 (x_{11} + x_{21}) + \dots + w_n (x_{1n} + x_{2n}) \\
+& = w_1 x_{11} + \dots + w_n x_{1n} + w_2 x_{21} + \dots + w_n x_{2n} \\
+& = f(\mathbf{x}_1) + f(\mathbf{x}_2) \\
+\\
+
+f(\alpha \mathbf{x}) &= w_1 \alpha x_1 + \dots + w_n \alpha x_n \\
+& = \alpha (w_1 x_1 + \dots + w_n x_n) \\
+& = \alpha f(\mathbf{x})
+\end{align*}
+++++
+
+This function satisfies both the conditions, hence it is a linear function in stem:[\mathbf{x}].
+
+* When stem:[n=1], then the function is stem:[f(x) = w_1x], which is a straight line passing through the origin.
+
+* when stem:[n=2], then the function is stem:[f(\mathbf{x}) = w_1x_1 + w_2x_2], which is a plane passing through the origin.
++
+.Linear functions stem:[f(x) = w_1x] (left) and stem:[f(\mathbf{x}) = w_1x_1 + w_2x_2] (right).
+image::.\images\linear_functions_01.png[align='center', 400, 300]
+
+* When stem:[n=3], then the function is stem:[f(\mathbf{x}) = w_1x_1 + w_2x_2 + w_3x_3]. We can't visualize this graph as it should be in 4D.
+
+The definition of linear functions can be extended to vector-valued functions stem:[f: \mathbb{R}^n \to \mathbb{R}^m], where each component stem:[f_i(\mathbf{x})] is a scalar linear function. The function takes a vector stem:[\mathbf{x} \in \mathbb{R}^n] and outputs a vector stem:[\mathbf{y} \in \mathbb{R}^m].
+
+[stem]
+++++
+\begin{align*}
+\mathbf{y} = f(\mathbf{x}) = \begin{bmatrix} 
+f_1(\mathbf{x}) \\
+f_2(\mathbf{x}) \\
+\dots \\
+f_m(\mathbf{x}) \\
+\end{bmatrix}
+& =
+\begin{bmatrix} 
+a_{11}x_1 + \dots + a_{1n}x_n \\
+a_{21}x_1 + \dots + a_{2n}x_n \\
+\dots \\
+a_{m1}x_1 + \dots + a_{mn}x_n \\
+\end{bmatrix} \\
+\\
+& = \begin{bmatrix} 
+a_{11} & \dots & a_{1n} \\
+a_{21} & \dots & a_{2n} \\
+\vdots & \dots & \vdots \\
+a_{m1} & \dots & a_{mn} \\
+\end{bmatrix} 
+\begin{bmatrix} 
+x_1 \\
+x_2 \\
+\dots \\
+x_n \\
+\end{bmatrix} \\
+
+& = A\mathbf{x}
+\end{align*}
+++++
+
+This function also satisfies both the conditions and thus it is a linear function in stem:[\mathbf{x}].
+
+WARNING: A linear function has no intercept, it passes through the origin.
+
+== Affine Functions ==
+We say a function stem:[g: \mathbb{R}^n \rightarrow \mathbb{R}^m] is affine if there is a linear function stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}^m] and a vector stem:[\mathbf{b} \in \mathbb{R}^m] such that stem:[g(\mathbf{x}) = f(\mathbf{x}) + \mathbf{b}] for all stem:[\mathbf{x} \in \mathbb{R}^n]. An affine function is just a linear function plus an intercept.
+
+For example
+
+* Scalar-valued function: stem:[g(\mathbf{x}) = w_1x_1 + w_2x_2 + \dots + w_n x_n + b = \mathbf{w}^\top \mathbf{x} + b], where stem:[b \in \mathbb{R}].
+* Vector-valued function: stem:[g(\mathbf{x}) = \mathbf{Ax} + \mathbf{b}], where stem:[b \in \mathbb{R}^m].
+
+== Quadratic Functions ==
+A quadratic function is a polynomial function of degree 2. A scalar-valued function stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}] is said to be a quadratic function when it is of the form
+
+[stem]
+++++
+f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\top \mathbf{Q} \mathbf{x} + \mathbf{b}^\top \mathbf{x} + c
+++++
+
+where
+
+* stem:[\mathbf{Q} \in \mathbb{R}^{n \times n}] is a symmetric matrix.
+* stem:[\mathbf{b} \in \mathbb{R}^n] is a vector of coefficients.
+* stem:[c \in \mathbb{R}] is a scalar.
+
+This form generalizes the univariate quadratic stem:[\frac{1}{2} ax^2 + bx + c]. This can be extended to vector-valued functions stem:[f: \mathbb{R}^n \to \mathbb{R}^m], where each component stem:[f_i(\mathbf{x})] is a scalar quadratic function.
+
+[stem]
+++++
+\begin{align*}
+\mathbf{y} = f(\mathbf{x}) = \begin{bmatrix} 
+f_1(\mathbf{x}) \\
+f_2(\mathbf{x}) \\
+\vdots \\
+f_m(\mathbf{x}) \\
+\end{bmatrix}
+& =
+\begin{bmatrix} 
+\frac{1}{2} \mathbf{x}^\top \mathbf{Q}_1 \mathbf{x} + \mathbf{b}_1^\top \mathbf{x} + c_1 \\
+\frac{1}{2} \mathbf{x}^\top \mathbf{Q}_2 \mathbf{x} + \mathbf{b}_2^\top \mathbf{x} + c_2 \\
+\vdots \\
+\frac{1}{2} \mathbf{x}^\top \mathbf{Q}_m \mathbf{x} + \mathbf{b}_m^\top \mathbf{x} + c_m \\
+\end{bmatrix}
+\end{align*}
+++++
+
+where for stem:[i=1, \dots, m]
+
+* stem:[\mathbf{Q}_i \in \mathbb{R}^{n \times n}] are symmetric matrices.
+* stem:[\mathbf{b}_i \in \mathbb{R}^n] are vector of coefficients.
+* stem:[c_i \in \mathbb{R}] are scalars.
+
+NOTE: The factor stem:[\frac{1}{2}] in the quadratic form is a convention that simplifies gradient and Hessian expressions. It is not required for the definition of quadratic function, but a matter of convention for cleaner derivatives.
+
+
+[bibliography]
+== References ==
+
+* [[[KhanAcademy]]] Images are taken from Khan Academy. (n.d.). https://www.khanacademy.org/math/multivariable-calculus/thinking-about-multivariable-function/ways-to-represent-multivariable-functions/a/contour-maps

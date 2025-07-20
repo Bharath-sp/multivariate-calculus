@@ -1,0 +1,86 @@
+= Convex Function Properties =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Interior Point ==
+Let stem:[S \subseteq \mathbb{R}^n] be a non-empty set. A point stem:[\mathbf{x} \in \mathbb{R}^n] is called an interior point of stem:[S] if there exists an open ball stem:[B_{\delta}(\mathbf{x})] centered at stem:[\mathbf{x}] with radius stem:[\delta > 0] such that it is entirely contained within stem:[S], stem:[B_{\delta}(\mathbf{x}) \subseteq S]. That is,
+
+[stem]
+++++
+\exists \delta > 0 \text{ such that } \{\mathbf{y} \in \mathbb{R}^n: \|\mathbf{y} - \mathbf{x} \| < \delta\} \subseteq S
+++++
+
+Interior of the set stem:[S], denoted stem:[\text{int}(S)], is the set of all interior points of stem:[S].
+
+[stem]
+++++
+\text{int}(S) = \{\mathbf{x} \in S: \exists \delta > 0 \text{ such that } B_{\delta}(\mathbf{x}) \subseteq S\}
+++++
+
+== Properties of Convex Functions ==
+Convex functions are always defined on any convex set stem:[S]. By definition, a function is convex if
+
+[stem]
+++++
+f(\lambda x_1 + (1-\lambda)x_2) \leq \lambda f(x_1) + (1-\lambda) f(x_2) \,\,\, \forall \,\, x_1, x_2 \in S, \lambda \in [0,1]
+++++
+
+If the domain stem:[S] of the function is not convex, then the point stem:[\lambda x_1 + (1-\lambda)x_2] might not belong to stem:[S]. The function is not defined there. Therefore, for convex functions, the domain of the definition of the function must be a convex set.
+
+A convex function will be continuous in the interior of the domain of the definition of the function. If there is any discontinuity of a convex function, they must be occurring at the boundary of the domain of the definition of the function.
+
+For example, consider a function stem:[f: [-1,1\] \to \mathbb{R}]
+
+[stem]
+++++
+f(x)= \begin{cases}
+        x^2 & \text{if } -1 < x < 1\\
+        2 & \text{if } \|x\|=1
+    \end{cases}
+++++
+
+.Continuity of a convex function
+image::.\images\convex_prop_01.png[align='center', 200, 200]
+
+For any two points in the graph, the function value stem:[f] lies below the function given by the chord joining the selected two points. Hence, the function is convex. But the function is discontinuous at stem:[-1] and stem:[1].
+
+
+*Theorem 1:*
+
+Let stem:[S \subseteq \mathbb{R}^n] be a non-empty convex set and stem:[f: S \to \mathbb{R}] is convex on stem:[S]. Then stem:[f] is continuous in stem:[\text{int}(S)].
+
+*Theorem 2:*
+
+Let stem:[S \subseteq \mathbb{R}^n] be a non-empty convex set and stem:[f: S \to \mathbb{R}] is convex on stem:[S]. Suppose stem:[K] be a compact subset (a closed and bounded set) of stem:[\text{int}(S)]. Then stem:[f] is Lipschitz continuous on stem:[K].
+
+Consider a point stem:[\bar{\mathbf{x}} \in \text{int}(S)]. By the definition of the interiority, we have an open ball stem:[B_{\delta}(\bar{\mathbf{x}})] lying inside the set stem:[S]. Consider the closed ball (including the boundary points) with half the radius stem:[\overline{B_{\frac{\delta}{2}}(\bar{\mathbf{x}})} \subseteq \text{int}(S)]. This set is a closed, bounded and a subset of stem:[\text{int}(S)]. Let's denote it by stem:[K].
+
+.Deep shaded region is a compact set stem:[K]
+image::.\images\convex_prop_02.png[align='center', 300, 300]
+
+Then according to theorem 2, the convex function is Lipschitz continuous in stem:[K]. That is, there exists stem:[L > 0] such that
+
+[stem]
+++++
+|f(\mathbf{x}_1) - f(\mathbf{x}_2)| \leq L\| \mathbf{x}_1 - \mathbf{x}_2 \| \,\, \forall \mathbf{x}_1, \mathbf{x}_2 \in K
+++++
+
+This essentially says that the function stem:[f] is locally Lipschitz at stem:[\bar{\mathbf{x}}]. And note here stem:[\bar{\mathbf{x}}] can be any point in the stem:[\text{int}(S)]. Hence, the function is locally Lipschitz in the entire stem:[\text{int}(S)]. All the three conditions
+
+. Closedness of stem:[K]
+. Boundedness of stem:[K]
+. stem:[K \subseteq \text{int}(S)]
+
+are essential for theorem 2 to hold.
+
+Theorem 2 also implies that the function is continuous in stem:[\text{int}(S)]. Therefore, theorem 1 is followed from theorem 2.
+
+
+. Even if the given convex function is not differentiable, the function will have directional derivative at any interior point on the domain of the function, along any direction.
+
+[bibliography]
+== References ==
+
+* Boyd, S. P., & Vandenberghe, L. (2004). Convex Optimization. Cambridge University Press.

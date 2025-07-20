@@ -1,0 +1,8 @@
+= Concept of Duality =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== What is Duality? ==
+In optimization theory, duality refers to a concept that associated two mathematical programs: one, the primal which is a constrained minimization (or maximization) problem and other called the dual which is a constrained maximization (or minimization). These two problems provide different perspectives on the same underlying optimization structure, and under certain conditions, they yield the same optimal objective value. Under certain conditions, we can also get the optimal solution of the primal from the dual.

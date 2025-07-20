@@ -1,0 +1,111 @@
+= Cones for Constrained Optimization =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Dual Cone ==
+Let stem:[C] be a non-empty subset of stem:[\mathbb{R}^n]. The dual cone of the set stem:[C] is
+
+[stem]
+++++
+C^* := \{\mathbf{y} \in \mathbb{R}^n : \mathbf{y}^\top \mathbf{x} \geq 0 \,\, \forall \mathbf{x} \in C\}
+++++
+
+which is a set with those directions stem:[\mathbf{y}] in stem:[\mathbb{R}^n] that satisfy stem:[\mathbf{y}^\top \mathbf{x} \geq 0 \,\, \forall \mathbf{x} \in C]. Suppose the set stem:[C] be all the points (including the boundary) and a chosen vector stem:[\mathbf{y}] be
+
+.A candidate point of stem:[C^*] (left plot) and the set stem:[C^*] (right plot)
+image::.\images\dual_cone_01.png[align='center', 600, 400]
+
+For a chosen stem:[\mathbf{y}], the set of all stem:[\mathbf{x}] that satisfy stem:[\mathbf{y}^\top \mathbf{x} = 0] is a hyperplane passing through the origin and is perpendicular to stem:[\mathbf{y}]. All the directions in the highlighted region (in the left plot of Figure 1) result in a dot product stem:[\geq 0] with stem:[\mathbf{y}] because these directions make stem:[-90^{\circ} \leq \theta \leq 90 ^{\circ}] with stem:[\mathbf{y}]. All the directions in stem:[C] make a dot product stem:[\geq 0] with stem:[\mathbf{y}]. Hence, stem:[\mathbf{y}] is a candidate of the set stem:[C^*].
+
+The right plot of Figure 1 shows the set stem:[C^*] geometrically. The dark yellow directions are the top and bottom most extreme directions in stem:[C]. The set stem:[C^*] is the set of all the points in the highlighted region (in the right plot of Figure 1) between the two extremes and their perpendiculars.
+
+NOTE: By definition, the zero vector will always be in the dual cone of the set stem:[C].
+
+The dual cone of a set contains those vectors that make acute angle stem:[\leq 90^{\circ}] with all the vectors in stem:[C].
+
+*Example 01:*
+
+Find the dual cone of the set stem:[C=\{(x_1, x_2) \in \mathbb{R}^2: x_1^2+x_2^2 =1\}].
+
+The points in the set stem:[C] are the points on the periphery of the unit circle. For any non-null direction stem:[\mathbf{d}], there exists a vector
+
+[stem]
+++++
+\begin{align*}
+\mathbf{x}_d & = - \frac{\mathbf{d}}{\|\mathbf{d}\|} \in C \\
+\mathbf{x}_d^\top \mathbf{d} & = - \|\mathbf{d}\| < 0 && \text{ on taking dot product with } \mathbf{d}
+\end{align*}
+++++
+
+So, stem:[\mathbf{d}] cannot be in the set stem:[C^*]. Thus, the dual cone of the set stem:[C] contains only the zero vector stem:[C^*=\{\mathbf{0}\}].
+
+*Example 02:*
+
+Find the dual cone of the set stem:[C=\{(x_1, x_2) \in \mathbb{R}^2: (x_1-1)^2+(x_2-1)^2 =1\}]. The extreme directions of the stem:[C] are the positive stem:[x_1]-axis and positive stem:[x_2]-axis. Thus, the set stem:[C^* = \{(d_1, d_2) \in \mathbb{R}^2: d_1 \geq 0, d_2 \geq 0\} \equiv \mathbb{R}^2_+].
+
+NOTE: We get the same dual cone on considering the set stem:[C] with constraint stem:[(x_1-1)^2+(x_2-1)^2 \leq 1].
+
+*Example 03:*
+
+Find the dual cone of the set stem:[C=\{(x_1, x_2) \in \mathbb{R}^2: (x_1-1)^2+(x_2-1)^2 \leq \frac{1}{5}\}]. The dual cone is stem:[C^* = \{(d_1, d_2) \in \mathbb{R}^2: d_2 \geq -2d_1, d_2 \geq -\frac{1}{2}d_1 \}].
+
+.the dual cone for example 01, 02, and 03 (from left to right)
+image::.\images\dual_cone_02.png[align='center', 700, 500]
+
+*Why the notion of dual cone is useful?:*
+
+A direction stem:[\mathbf{d}] is descent for a given function stem:[f] at stem:[\bar{\mathbf{x}}] if stem:[\nabla f(\bar{\mathbf{x}})^\top \mathbf{d} < 0 ]. If stem:[\nabla f(\bar{\mathbf{x}})] is inside the set stem:[C], the set of all directions those are descent must not be belonging to the set stem:[C^*].
+
+== Cone of Feasible Directions ==
+Let stem:[\mathbf{X}] be a non-empty subset of stem:[\mathbb{R}^n]. A constrained optimization problem is
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{x} \in \mathbb{R}^n} & \,\,\,  f(\mathbf{x}) \\
+\text{ subject to } & g_i(\mathbf{x}) \leq 0, \, i=1,\dots,m \\
+& h_j(\mathbf{x}) = 0, \, j=1,\dots,l
+\end{align*}
+++++
+
+where stem:[\mathbf{x} \in \mathbf{X}]. Usually inside stem:[\mathbf{X}], those constraints are kept for which it is difficult to identify inequality or equality conditions to present those constraints. We assume that the functions stem:[f, g_i, h_j] are all continuously differentiable in the set stem:[\mathbf{X}].
+
+*Feasibility set:*
+
+The set of all points in stem:[\mathbf{X}] for which all the constraints are satisfied is called the feasibility set of the mathematical problem.
+
+[stem]
+++++
+F = \{\mathbf{x} \in \mathbf{X}: g_i(\mathbf{x}) \leq 0 \text{ and } h_j(\mathbf{x}) = 0 \,\, \forall i, j \}
+++++
+
+*Active Set:*
+
+Any point stem:[\mathbf{x} \in F] is called a feasible point. Let stem:[\mathbf{x}_0] be a feasible point, the active set at stem:[\mathbf{x}_0] is the set of all inequality indices such that
+
+[stem]
+++++
+A(\mathbf{x}_0) = \{i \in \{1,2,\dots,m\} \, | \, g_i(\mathbf{x}_0)=0 \}
+++++
+
+At stem:[\mathbf{x}_0], if any constraint is inactive, i.e., stem:[g_i(\mathbf{x}_0)<0] for any stem:[i], then there exists a direction stem:[\mathbf{d}] such that we can move along stem:[\mathbf{d}] and still hold the condition stem:[g_i(\mathbf{x})< 0].
+
+.an inactive constraint at stem:[\mathbf{x}_0]
+image::.\images\inactive_set.png[align='center', 200, 200]
+
+*Feasible Direction:*
+
+At a point stem:[\mathbf{x}_0 \in F], a direction stem:[\mathbf{d} \in \mathbb{R}^n] is called feasible direction if there exists at least a directed line segment from stem:[\mathbf{x}_0] along the direction stem:[\mathbf{d}] such that the line segment is only lying inside the feasibility set. Mathematically, if there exists a distance in the line segment stem:[\delta > 0] such that
+
+[stem]
+++++
+\mathbf{x}_0 + \tau \mathbf{d} \in F \hspace{1cm} \forall \tau \in [0,\delta]
+++++
+
+.Geometric intuition of feasible directions
+image::.\images\feasible_direction.png[align='center', 300, 300]
+
+* At stem:[\mathbf{x}_0], all the directions are feasible directions.
+* At stem:[\mathbf{x}_0'], the feasible directions are those within the tangent of the boundaries on all the sides. All the directions in the highlighted region are feasible directions.

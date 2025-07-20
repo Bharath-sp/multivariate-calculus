@@ -1,0 +1,259 @@
+= Constrained Optimization =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Equality Constrained Problems ==
+Suppose the mathematical problem is
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{x} \in \mathbb{R}^n} & \,\,\,  f(\mathbf{x}) \\
+\text{ subject to } & h_j(\mathbf{x}) = 0, \, j=1,\dots,l \\
+\end{align*}
+++++
+
+where stem:[f] and stem:[h_j \,\, \forall j] are continuously differentiable functions.
+
+*Step 1:*
+
+The Lagrange function is given by
+
+[stem]
+++++
+\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) +  \sum_{j=1}^l \lambda_j h_j(\mathbf{x}) \hspace{1cm} \forall \boldsymbol{\lambda} \in \mathbb{R}^l
+++++
+
+where stem:[ \boldsymbol{\lambda} = (\lambda_1, \dots, \lambda_l)] is the vector of Lagrange multipliers, each corresponding to each constraint in the problem.
+
+*Step 2:*
+
+Solve for stem:[(\mathbf{x}, \boldsymbol{\lambda})] such that stem:[\frac{\partial \mathcal{L}}{\partial \mathbf{x}} = \mathbf{0}] and stem:[\frac{\partial \mathcal{L}}{\partial \boldsymbol{\lambda}} = \mathbf{0}].
+
+[stem]
+++++
+\begin{align*}
+\nabla_{\mathbf{x}} \mathcal{L} = \frac{\partial \mathcal{L}}{\partial \mathbf{x}} = \begin{bmatrix} \frac{\partial \mathcal{L}}{\partial x_1} \\ \frac{\partial \mathcal{L}}{\partial x_2} \\ \vdots \\ \frac{\partial \mathcal{L}}{\partial x_n} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}  \text{  and  }
+
+\nabla_{\boldsymbol{\lambda}} \mathcal{L} = \frac{\partial \mathcal{L}}{\partial \boldsymbol{\lambda}} = \begin{bmatrix} \frac{\partial \mathcal{L}}{\partial \lambda_1} \\ \frac{\partial \mathcal{L}}{\partial \lambda_2} \\ \vdots \\ \frac{\partial \mathcal{L}}{\partial \lambda_l} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix} 
+
+\end{align*}
+++++
+
+This is known as the stationarity system of equations.
+
+*Step 3:*
+
+Find all the possible stem:[\mathbf{x}, \boldsymbol{\lambda}] vectors that satisfy this stationarity system. And make a set stem:[S] consisting of those stem:[\mathbf{x}] for which associated to stem:[\mathbf{x}] we have a stem:[\boldsymbol{\lambda}] that solves the  system.
+
+[stem]
+++++
+S = \{\bar{\mathbf{x}} : (\bar{\mathbf{x}}, \bar{\boldsymbol{\lambda}}) \text{ that solves the system} \} = \{\bar{\mathbf{x}}_1, \dots, \bar{\mathbf{x}}_k\}
+++++
+
+Then, find that stem:[\bar{\mathbf{x}} \in S] that minimizes the objective function. Such an stem:[\bar{\mathbf{x}}^*] is considered as the local minimizer of the function stem:[f] subject to the constraints.
+
+The stationarity system might be inconsistent, i.e., we might have no stem:[(\mathbf{x}, \boldsymbol{\lambda})] satisfying the system. In such cases, we get no optimal solution from this method. A local minimum point of the problem doesn't be a solution to this stationarity system if the objective and constraint function do not satisfy some regularity conditions.
+
+And, we should also check a second-order optimality (sufficient) condition to declare an stem:[\bar{\mathbf{x}}^*] as a local minimum. The Hessian of the Lagrangian function at a point should be positive definite in some particular cone of directions to declare the point as a local minimum.
+
+*Example 01:*
+
+Consider the problem
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{x} \in \mathbb{R}^2} & \,\,\,  x_1 x_2 \\
+\text{ subject to } & x_1+x_2 = 4 \\
+\end{align*}
+++++
+
+The Lagrange function is
+
+[stem]
+++++
+\mathcal{L}(\mathbf{x},\lambda) = x_1x_2 +  \lambda (x_1+x_2 -4=0)
+++++
+
+The stationarity system of the problem is
+
+[stem]
+++++
+\begin{align*}
+\frac{\partial \mathcal{L}}{\partial \mathbf{x}} & = \begin{bmatrix} \frac{\partial \mathcal{L}}{\partial x_1} \\ \frac{\partial \mathcal{L}}{\partial x_2} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}  \text{  and  }
+
+\frac{\partial \mathcal{L}}{\partial \lambda} = 0\\
+
+& = \begin{bmatrix} x_2 + \lambda \\ x_1 + \lambda \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}  \text{  and  } x_1+x_2 -4 = 0 \\
+\end{align*}
+++++
+
+which gives stem:[x_1 = x_2 = -\lambda] and stem:[\lambda=-2]. Then, stem:[S=\{(2,2)\}], associated to this stem:[\mathbf{x}], there is a stem:[\lambda] such that stem:[(\mathbf{x}, \lambda)] satisfies the stationarity system.
+
+But this is not a local minimizer of the objective function on the given constraint. In fact, on this line stem:[x_1+x_2=4], the objective function reduces indefinitely. For example, stem:[x_2=100] and stem:[x_1=-96] gives stem:[f(x_1, x_2) = -9600], etc.
+
+.Contour plot of stem:[f]
+image::.\images\cons_opt_01.png[align='center', 500, 300]
+
+The objective function is unbounded below on the given constraint line. So, the problem has no optimal solution. But the direct mechanical Lagrange multiplier method gives stem:[(2,2)] as the optimal solution.
+
+== Equality Constrained QP ==
+Let's see how to solve an equality constrained Quadratic Problem (EQP) using the Lagrange method.
+
+[stem]
+++++
+\begin{align*}
+\min_{x_1, x_2 \in \mathbb{R}} & \,\,\,  x_1^2 + x_2^2 \\
+\text{ subject to } & x_1 + x_2 = 1\\
+\end{align*}
+++++
+
+The objective function is a paraboloid. The Lagrange function is given as
+
+[stem]
+++++
+\begin{align*}
+\mathcal{L}(x_1, x_2, \lambda) & = x_1^2 + x_2^2 + \lambda (x_1 + x_2 -1) && \forall \, \lambda \in \mathbb{R} \\
+\end{align*}
+++++
+
+Now, we can solve the unconstrained MP stem:[\min_{x_1, x_2, \lambda \in \mathbb{R}} \mathcal{L}(x_1, x_2, \lambda)].
+
+[stem]
+++++
+\begin{align*}
+\frac{\partial \mathcal{L}}{\partial x_1} & = 2x_1 + \lambda = 0 \implies x_1 = - \frac{\lambda}{2} \\
+\frac{\partial \mathcal{L}}{\partial x_2} & = 2x_2 + \lambda = 0 \implies x_2 = - \frac{\lambda}{2} \\
+
+\frac{\partial \mathcal{L}}{\partial \lambda} & = x_1 + x_2 -1 = 0 \implies -\lambda -1 = 0 \implies \lambda = -1 \\
+\end{align*}
+++++
+
+NOTE: Setting up the derivative of stem:[\mathcal{L}] with respect to stem:[\lambda] to 0 is another way to enforce the constraint stem:[x_1 + x_2 =1].
+
+Therefore, the optimal solution is stem:[x_1^* = x_2^* = \frac{1}{2}]. The value of the MP is stem:[\frac{1}{2}]. Graphically, we can see the optimal solution:
+
+.Optimal solution of the MP in the contour plot of stem:[f].
+image::.\images\lagrange_eqp_01.png[align='center', 500, 300]
+
+=== Standard Form ===
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{x} \in \mathbb{R}^n} & \,\,\,  \mathbf{x}^\top \mathbf{Px} \\
+\text{ subject to } & \mathbf{Ax} = \mathbf{b}
+\end{align*}
+++++
+
+Let's assume stem:[n=2], and stem:[\mathbf{P}] is symmetric, and
+
+[stem]
+++++
+\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \, \mathbf{P} = \begin{bmatrix} p_{11} & p_{12}\\ p_{21} & p_{22} \end{bmatrix} \, ,
+\mathbf{A} = \begin{bmatrix} a_1 & a_2 \end{bmatrix}, \mathbf{b} \text{ is a scalar}
+++++
+
+The Lagrange function is given as:
+
+[stem]
+++++
+\begin{align*}
+\mathcal{L} & = \begin{bmatrix} x_1 & x_2 \end{bmatrix} \begin{bmatrix} p_{11} & p_{12}\\ p_{21} & p_{22} \end{bmatrix}  \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \lambda \left(\begin{bmatrix} a_1 & 1 \end{bmatrix} \cdot \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} -b \right) \\
+& = x_1^2 p_{11} + 2x_1x_2 p_{12} + x_2^2 p_{22} + \lambda a_1 x_1 + \lambda a_2 x_2 -\lambda b \\
+\end{align*}
+++++
+
+[stem]
+++++
+\begin{align*}
+\nabla_{\mathbf{x}, \lambda} \mathcal{L} = \begin{bmatrix} \frac{\partial \mathcal{L}}{\partial x_1} \\ \frac{\partial \mathcal{L}}{\partial x_2} \\ \frac{\partial \mathcal{L}}{\partial \lambda} \end{bmatrix} & = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}  \\
+
+\begin{bmatrix} 2x_1 p_{11}+2x_2 p_{12} + \lambda a_1 \\ 2x_2 p_{22}+2x_1 p_{12} + \lambda a_2 \\ a_1 x_1 + a_2x_2 -b \end{bmatrix} & = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \iff 
+
+\begin{bmatrix} 2 p_{11} & 2 p_{12} & a_1 \\ 2 p_{21} & 2 p_{22} & a_2 \\ a_1 & a_2 & 0 \end{bmatrix} \cdot \begin{bmatrix} x_1 \\ x_2 \\ \lambda \end{bmatrix}  = \begin{bmatrix} 0 \\ 0 \\ b \end{bmatrix} \\
+\\
+\iff \begin{bmatrix} 2\mathbf{P} & \mathbf{A}^\top \\ \mathbf{A} & 0 \end{bmatrix} \cdot \begin{bmatrix} \mathbf{x} \\ \lambda \end{bmatrix} & = \begin{bmatrix} \mathbf{0} \\ b \end{bmatrix}
+
+\end{align*}
+++++
+
+== Inequality Constrained QP ==
+
+*Example 01:*
+
+Let's see how to solve an inequality constrained Quadratic Problem (IQP) using the Lagrange method that uses the slack variable.
+
+[stem]
+++++
+\begin{align*}
+\min_{x_1, x_2 \in \mathbb{R}} & \,\,\,  x_1^2 + x_2^2 \\
+\text{ subject to } & x_1 + x_2 \leq 1\\
+\end{align*}
+++++
+
+We change this inequality costraint to an equality constraint using a slack variable stem:[\epsilon], that is, stem:[x_1 + x_2 -1 + \epsilon^2 = 0]. Since stem:[\epsilon^2] is always stem:[\geq 0], this equality constraint is equivalent to the given inequality constraint. So, the problem has now become an EQP. The Lagrange function is given as
+
+[stem]
+++++
+\begin{align*}
+\mathcal{L}(x_1, x_2, \lambda, \epsilon) & = x_1^2 + x_2^2 + \lambda (x_1 + x_2 -1 + \epsilon^2) && \forall \, \lambda, \epsilon \in \mathbb{R} \\
+\end{align*}
+++++
+
+Now, we can solve the unconstrained MP stem:[\min_{x_1, x_2, \lambda, \epsilon \in \mathbb{R}} \mathcal{L}(x_1, x_2, \lambda, \epsilon)].
+
+[stem]
+++++
+\begin{align*}
+\frac{\partial \mathcal{L}}{\partial x_1} & = 2x_1 + \lambda = 0 \implies x_1 = - \frac{\lambda}{2} \\
+\frac{\partial \mathcal{L}}{\partial x_2} & = 2x_2 + \lambda = 0 \implies x_2 = - \frac{\lambda}{2} \\
+
+\frac{\partial \mathcal{L}}{\partial \lambda} & = x_1 + x_2 -1 + \epsilon^2 = 0 \implies -\lambda -1 + \epsilon^2 = 0 \implies \epsilon^2 = \lambda +1 \implies \epsilon = \pm \sqrt{\lambda +1} \\
+\frac{\partial \mathcal{L}}{\partial \epsilon} & = 2 \lambda \epsilon = 0 \implies \pm 2 \lambda \sqrt{\lambda +1} = 0 \implies \lambda = 0 \text{ or } \lambda =-1
+\end{align*}
+++++
+
+This has resulted in two candidate solutions:
+
+[stem]
+++++
+\begin{align*}
+\lambda = 0  & \implies \epsilon = \pm 1; x_1 = x_2 =0; f(x_1, x_2) = 0 \\
+\lambda = -1  & \implies \epsilon = 0; x_1 = x_2 =\frac{1}{2}; f(x_1, x_2) = \frac{1}{2} \\
+\end{align*}
+++++
+
+In both cases, the conditions stem:[\lambda, \epsilon \in \mathbb{R}] are not violated. But we choose stem:[\lambda=0] because the objective function value is smaller when stem:[\lambda=0].
+
+.Optimal solution of the MP in the contour plot of stem:[f].
+image::.\images\lagrange_iqp_01.png[align='center', 500, 300]
+
+NOTE: If the solution is stem:[\epsilon=0], that is, when the constraint is stem:[x_1 + x_2 -1 =0], then this is the solution to EQP. The solution lies on the constraint line, i.e., the constraint is active. If there exists a case where stem:[\epsilon \ne 0], we choose that stem:[\epsilon] as the solution to the IQP.
+
+*Example 02:*
+
+Let's see how to solve an inequality constrained Quadratic Problem (IQP) using the Lagrange method without using the slack variable.
+
+[stem]
+++++
+\begin{align*}
+\min_{x_1, x_2 \in \mathbb{R}} & \,\,\,  x_1^2 + x_2^2 \\
+\text{ subject to } & x_1 + x_2 \leq 1\\
+\end{align*}
+++++
+
+The Lagrange function is given as
+
+[stem]
+++++
+\begin{align*}
+\mathcal{L}(x_1, x_2, \lambda) & = x_1^2 + x_2^2 + \lambda (x_1 + x_2 -1) && \forall \, \lambda \geq 0 \\
+\end{align*}
+++++
+
+Now, we can solve the unconstrained MP stem:[\min_{x_1, x_2, \lambda \in \mathbb{R}} \mathcal{L}(x_1, x_2, \lambda)].
+

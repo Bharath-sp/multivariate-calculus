@@ -1,0 +1,112 @@
+= Properties of MPs =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Cascaded MPs ==
+Say we are given a MP
+
+[stem]
+++++
+\min_{\mathbf{w} \in \mathbb{R}^n} \hspace{1cm} \mathbf{w}^\top \mathbf{x} + b 
+++++
+
+Here the variable of the MP is stem:[\mathbf{w}]. And stem:[\mathbf{x}] and stem:[b] are given, fixed constant. They are known as *parameters* of the MP. The parameters of the MP are variables that are not variables of the MP. The value of the MP is a function of its parameters, i.e., the value of the MP depends on stem:[\mathbf{x}] and stem:[b]. 
+
+*Example 01:*
+
+[stem]
+++++
+\min_{\|\mathbf{w}\| \leq 1} \hspace{1cm} \mathbf{w}^\top \begin{bmatrix} 2 \\ 3 \end{bmatrix}  + 5
+++++
+
+From the Cauchy-Schwartz inequality, we know that stem:[- \|\mathbf{x}\| \|\mathbf{w}\| \leq \langle \mathbf{x}, \mathbf{w} \rangle \leq \|\mathbf{x}\| \|\mathbf{w}\|]. The dot product of two vectors will be the least when the vectors are in the opposite direction. So, out of all the directions we choose the vector that is in the opposite direction of stem:[(2,3)^\top], and with unit length, stem:[ \begin{bmatrix} \frac{-2}{\sqrt{13}} \\ \frac{-3}{\sqrt{13}} \end{bmatrix}].
+
+[stem]
+++++
+\begin{bmatrix} \frac{-2}{\sqrt{13}} \\ \frac{-3}{\sqrt{13}} \end{bmatrix}^\top \begin{bmatrix} 2 \\ 3 \end{bmatrix}  + 5 = -\sqrt{13} + 5
+++++
+
+This is the value of the MP. Changing the values of stem:[\mathbf{x}] and stem:[b] gives us different value for the MP. Thus, the value of the MP is a function of its parameters.
+
+[stem]
+++++
+g(\mathbf{x}, b) = \min_{\|\mathbf{w}\| \leq 1} \mathbf{w}^\top \mathbf{x} + b 
+++++
+
+In some cases, we can write this function stem:[g(\mathbf{x}, b)] in the analytical form, i.e., in terms of stem:[\mathbf{x}] and stem:[b]. For this example
+
+[stem]
+++++
+g(\mathbf{x}, b) = \frac{-\mathbf{x}^\top}{\| \mathbf{x}\|} \mathbf{x} + b = - \|\mathbf{x}\| + b
+++++
+
+So it turns out that
+
+====
+[stem]
+++++
+\min_{\|\mathbf{w}\| \leq 1} \mathbf{w}^\top \mathbf{x} + b = - \|\mathbf{x}\| + b
+++++
+====
+
+Since this is also a function, we can ask stem:[\min_{\|\mathbf{x}\| \leq 1}  b  - \|\mathbf{x}\|]. The value of this MP is stem:[b-1]. On cascading both the results, we get
+
+[stem]
+++++
+\min_{\|\mathbf{x}\| \leq 1}  \min_{\|\mathbf{w}\| \leq 1} \mathbf{w}^\top \mathbf{x} + b = b-1
+++++
+
+Such MPs are called cascaded or sequences of MPs. We start with evaluating the inner most MP, which gives us a function of the parameters. Then keep doing it to evaluate the cascade of MPs.
+
+[stem]
+++++
+\min_{b \geq 2} \min_{\|\mathbf{x}\| \leq 1}  \min_{\|\mathbf{w}\| \leq 1} \mathbf{w}^\top \mathbf{x} + b = 1
+++++
+
+NOTE: This is similar to the multiple integrals computation.
+
+=== Order of the MPs ===
+In the cascaded MPs, the order doesn't matter. We can put the MPs in any order. All of them result in the same value for the MP. For the above example, we have 3 MPs. We can put them in any order (stem:[3!=6] ways are possible), and the value of the cascaded MPs will still be 1. This is in fact a theorem and can be proved formally.
+
+For example, let stem:[f(x,y)=x^2 + y^2].
+
+[stem]
+++++
+\begin{align*}
+\min_y \min_x f(x,y) & = \min_x \min_y f(x,y)\\
+\min_y y^2 & = \min_x x^2 \\
+0 & = 0
+\end{align*}
+++++
+
+* In the LHS case, we fix a stem:[y], then the inner MP will only be the function of stem:[x]. We minimize this function with respect to stem:[x].
+* In the RHS case, we fix an stem:[x], then the inner MP will only be the function of stem:[y]. We minimize this function with respect to stem:[y].
+
+NOTE: This MP can also be written as stem:[\min_{(x,y) \in \mathbb{R}^2} f(x,y)].
+
+We can change the order of the MPs when we have cascaded `min` or cascaded `max` problem. But we can't change the order when we have `min` and `max` MPs cascaded. For example, stem:[\max_y \min_x f(x,y) \ne \min_x \max_y f(x,y)]. This can be equal in some special cases, but we can always show that
+
+[stem]
+++++
+\max_{y \in \mathcal{Y}} \min_{x \in \mathcal{X}} f(x,y) \leq \min_{x \in \mathcal{X}} \max_{y \in \mathcal{Y}} f(x,y)
+++++
+
+where the domain of stem:[x] and stem:[y] can be anything, and let's assume stem:[\mathbb{R}] here for simplicity.
+
+*Proof:*
+
+[stem, id='eq_1']
+++++
+\begin{align}
+f(x,y) & \leq \max_{y'} f(x,y') && \forall (x,y) \\
+\min_x f(x,y) & \leq \min_x \max_{y'} f(x,y') && \forall y \\
+\max_y \min_x f(x,y) & \leq \min_x \max_y f(x,y)
+\end{align}
+++++
+
+* Fix a point stem:[(x,y)] for the LHS and only stem:[x] for the RHS in (1). By the definition of `max`, the function value is always stem:[\leq] than stem:[\max_{y'} f(x,y')]. Thus, the inequality (1) is always true.
+* Fix a point stem:[y], then the LHS in (1) becomes a function of stem:[x]. RHS in (1) is already a function of stem:[x]. So, we have a function of stem:[x \leq ] to another function of stem:[x]. Since it is true for all stem:[x], it will be true for `min` stem:[x] as well. Thus, we get the (2) inequality by applying `min` on both the sides of inequality (1).
+
+* In the (2) inequality, the LHS is a function of stem:[y] and the RHS is a constant. The function of stem:[y] is less than or equal to a constant for all stem:[y]. Then it is also true for the `max` stem:[y]. If stem:[g(y) \leq 3 \,\, \forall y], then it is true that stem:[\max_y g(y) \leq 3]. Thus, we get the third inequality.

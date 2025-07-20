@@ -1,0 +1,204 @@
+= Derivatives of Common Functions  =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Vector and Matrix Product Rule ==
+The derivative of the product of two matrices is stem:[d(\mathbf{AB}) = (d\mathbf{A}) \mathbf{B} + \mathbf{A}(d\mathbf{B})]. Note that the matrix product is not commutative, stem:[\mathbf{AB} \ne \mathbf{BA}].
+
+The derivative of the product of two vectors is stem:[d(\mathbf{x}^\top \mathbf{x}) = (d\mathbf{x}^\top) \mathbf{x} + \mathbf{x}^\top d\mathbf{x}]. Note that the dot product commutative stem:[d\mathbf{x}^\top \mathbf{x} = \mathbf{x}^\top d\mathbf{x}], so we can write it as stem:[d(\mathbf{x}^\top \mathbf{x}) = (2\mathbf{x})^\top d\mathbf{x}].
+
+*Example 01:*
+
+Suppose we have a function stem:[f: \mathbb{R} \to \mathbb{R}] that takes in a scalar, and outputs a scalar. For example: stem:[f(x) = x^3]. The derivative of this function with respect to stem:[x] at a particular point stem:[x] is a scalar, stem:[\frac{df}{dx} = 3x^2]. This derivative gives us the instantaneous rate at which the function changes for a inifinitesimal small change from stem:[x] - a scalar that captures how fast stem:[f(x)] changes as stem:[x] changes.
+
+But when we look at the derivative as a linear operator, stem:[df = 3x^2 dx], the derivative is a linear function of stem:[dx] that gives us the best first-order approximation of how much the function changes for a given small change stem:[dx].
+
+*Example 02:*
+
+Let stem:[f(\mathbf{x}) = \mathbf{x}^\top \mathbf{x}] that takes in a vector and outputs a scalar. Find the derivative of stem:[f] with respect to stem:[\mathbf{x}].
+
+The old-fashioned wway of taking the derivative is stem:[f(\mathbf{x}) = \mathbf{x}^\top \mathbf{x} = \sum_{i=1}^n x_i^2]
+
+[stem]
+++++
+\nabla f(\mathbf{x}) = \begin{bmatrix} \frac{\partial f}{\partial x_1} \\ \vdots \\ \frac{\partial f}{\partial x_n} \end{bmatrix} = \begin{bmatrix} 2x_1 \\ \vdots \\ 2x_n \end{bmatrix} = 2\mathbf{x}
+++++
+
+The derivative of this function with respect to stem:[\mathbf{x}] is stem:[df = 2 \mathbf{x}^\top d\mathbf{x}].
+
+*Example 03:*
+
+Let stem:[f(\mathbf{X}) = \mathbf{X}^2], where is a stem:[n \times n] matrix. Find the derivative of stem:[f] with respect to stem:[\mathbf{X}].
+
+*Method 1:*
+
+The function takes in a stem:[n \times n] matrix and gives out a stem:[n \times n] matrix. We can flatten out the matrix and consider that the function takes in a vector of stem:[n^2] components and gives out a vector of stem:[n^2] components. Then, the derivative will be a matrix of size stem:[n^2 \times n^2]. This is tedious and it is not recommended.
+
+*Method 2:*
+
+In matrix calculus, the (Fréchet) derivative stem:[Df(\mathbf{X})] is defined as the best linear approximation of how stem:[f(\mathbf{X})] changes as stem:[\mathbf{X}] is perturbed:
+
+[stem]
+++++
+f(\mathbf{X} + d\mathbf{X}) = f(\mathbf{X}) + Df(\mathbf{X})[d\mathbf{X}] + o(\| d\mathbf{X} \| )  \hspace{1cm} \text{as } \| d\mathbf{X} \| \to 0
+++++
+
+The (Fréchet) derivative is stem:[Df(\mathbf{X})] is the unique linear operator that acts upon stem:[d\mathbf{X}] and gives us how much the function changes for a given small change stem:[d\mathbf{X}].
+
+[stem]
+++++
+Df(\mathbf{X})[d\mathbf{X}] = f(\mathbf{X} + d\mathbf{X}) - f(\mathbf{X})
+++++
+
+For stem:[f(\mathbf{X}) = \mathbf{X}^2], we compute
+
+[stem]
+++++
+\begin{align*}
+f(\mathbf{X} + d\mathbf{X}) & = (\mathbf{X} + d\mathbf{X})^2 \\
+& = \mathbf{X}^2 + \mathbf{X} \, d\mathbf{X} + d\mathbf{X} \, \mathbf{X} + (d\mathbf{X})^2
+\end{align*}
+++++
+
+Ignoring the second-order term stem:[(d\mathbf{X})^2], the (Fréchet) derivative is:
+
+[stem]
+++++
+Df(\mathbf{X})[d\mathbf{X}]  = \mathbf{X} d\mathbf{X} + d\mathbf{X} \, \mathbf{X}
+++++
+
+Then, the change in stem:[f] for a perturbation stem:[d\mathbf{X}] is stem:[d(\mathbf{X}^2) = \mathbf{X} d\mathbf{X} + d\mathbf{X} \, \mathbf{X}].
+
+*Example 01:*
+
+Let stem:[f(\mathbf{x}) = \mathbf{w}^\top \mathbf{x} + b]. Find the gradient of stem:[f].
+
+We know stem:[f(\mathbf{x}) = \sum_{i=1}^n w_i x_i + b]. Then 
+
+[stem]
+++++
+\frac{\partial f}{\partial x_1} = w_1; \hspace{1cm}\dots\hspace{1cm} ;\frac{\partial f}{\partial x_n} = w_n 
+++++
+
+Hence the gradient of stem:[f] is stem:[\nabla f(\mathbf{x}) = \mathbf{w}], which is a constant vector. For scalar-valued linear functions, the gradient is a constant.
+
+*Example 02:*
+
+Let stem:[f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\top \mathbf{P} \mathbf{x} + \mathbf{q}^\top \mathbf{x} + r]. Find the gradient of stem:[f]. Assume the matrix stem:[\mathbf{P}] is symmetric.
+
+As we are taking derivatives, we can take the derivative term by term and then add them up. The gradient of stem:[r] is stem:[\mathbf{0}]. The gradient of stem:[\mathbf{q}^\top \mathbf{x}] is stem:[\mathbf{q}]. Let stem:[g(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\top \mathbf{P} \mathbf{x} = \frac{1}{2} \sum_{i,j} x_i x_j P_{ij}].
+
+[stem]
+++++
+\begin{align*}
+g(\mathbf{x}) & = \frac{1}{2} \mathbf{x}^\top \mathbf{P} \mathbf{x} \\
+& = \frac{1}{2} P_{11} x_1^2 + x_1 x_2 P_{12} + x_1 x_3 P_{13} + \dots + x_1 x_n P_{1n} + \dots
+\end{align*}
+++++
+
+NOTE: stem:[x_1 x_2 P_{12} = x_1 x_2 P_{21}], so stem:[\frac{1}{2} * 2 x_1 x_2 P_{12} = x_1 x_2 P_{12}].
+
+[stem]
+++++
+\begin{align*}
+\frac{\partial g(\mathbf{x})}{\partial x_1} & = P_{11} x_1 + P_{12} x_2 + \dots + P_{1n} x_n = \mathbf{Px}\,|_1 \\
+\frac{\partial g(\mathbf{x})}{\partial x_2} & = \mathbf{Px}\,|_2 \\
+\dots \\
+\frac{\partial g(\mathbf{x})}{\partial x_n} & = \mathbf{Px}\,|_n \\
+\end{align*}
+++++
+
+Note stem:[\mathbf{Px}] is a vector and each partial derivative is an entry of the vector. Stacking them all gives stem:[\nabla g(\mathbf{x}) = \mathbf{Px}]. Then stem:[\nabla f(\mathbf{x}) = \mathbf{Px} + \mathbf{q}].
+
+*Example 03:*
+
+Let stem:[f(\mathbf{x}) = \sum_{i=1}^n x_i \log x_i], where stem:[x_i >0]. Then stem:[\nabla f(\mathbf{x}) = 1 + \log \mathbf{x}] where stem:[\log \mathbf{x}] is the entry-wise log.
+
+*Example 04:*
+
+Let stem:[f(\mathbf{X}) = tr(\mathbf{X})]. This function takes a square matrix and gives a scalar. Find the gradient of stem:[f]. The domain of the function is the vector space of matrices. The inner product defined in a matrix vector space is the Frobenius inner product.
+
+The general form of a linear function in the matrix vector space passing through stem:[(\mathbf{X}_0, f(\mathbf{X}_0))] is given by
+
+[stem]
+++++
+l_{\mathbf{X}_0}(\mathbf{X}) = f(\mathbf{X}_0) + \langle \nabla f(\mathbf{X}_0), \mathbf{X}- \mathbf{X}_0 \rangle_F
+++++
+
+Here stem:[\nabla f(\mathbf{X}_0)] is a matrix. If there exists a matrix stem:[\nabla f(\mathbf{X}_0)] such that
+
+[stem]
+++++
+\lim_{\mathbf{X} \to \mathbf{X}_0 } \frac{|f(\mathbf{X}) - l_{\mathbf{X}_0}(\mathbf{X})|}{\| \mathbf{X} - \mathbf{X}_0 \|_F} = 0
+++++
+
+the limit goes to 0, then we say the function is differentiable at stem:[\mathbf{X}_0]. And such a matrix is the gradient of stem:[f] at stem:[\mathbf{X}_0]. To compute this gradient, take the fundamental basis of matrices. Then by the theorem
+
+[stem]
+++++
+\left \langle \nabla f(\mathbf{X}_0), \begin{bmatrix} 1 & \dots & 0 \\ \vdots & \dots & \vdots  \\ 0  & \dots & 0 \end{bmatrix} \right \rangle = D_{\mathbf{U}}f(\mathbf{X}_0)
+++++
+
+The stem:[a_{11}] entry of the matrix stem:[\nabla f(\mathbf{X}_0)] is the first directional derivative, i.e., the partial derivative of the function with respect to the first variable. Similarly, the partial derivative with the second variable gives the stem:[a_{12}] entry of the matrix stem:[\nabla f(\mathbf{X}_0)], and so on. stem:[\mathbf{X}] has stem:[n \times n] variables.
+
+[stem]
+++++
+\frac{\partial f(\mathbf{X})}{\partial X_{ij}} = \frac{\partial tr(\mathbf{X})}{\partial X_{ij}} = \frac{\partial (\sum_k X_{kk})}{\partial X_{ij}} = \mathbf{I}
+++++
+
+So the gradient of the function is the identity matrix.
+
+*Example 05:*
+
+Let stem:[f(\mathbf{X}) = \langle \mathbf{A}, \mathbf{X} \rangle_F]. Then stem:[\nabla f(\mathbf{X}) = \mathbf{A}].
+
+== Summary ==
+
+* When stem:[f: \mathbb{R} \rightarrow \mathbb{R}], the linear approximation of stem:[f] at stem:[x_0] is stem:[l_{x_0}(x) = f(x_0) + m (x-x_0)]. If there exists a stem:[m \in \mathbb{R}] such that
++
+[stem]
+++++
+\lim_{x \to x_0} \frac{|f(x) - (f(x_0) + m(x-x_0))|}{|x-x_0|} = 0
+++++
++
+goes to 0, then we say the function is differentiable at stem:[x_0]. And we call this stem:[m] as the derivative of stem:[f] at stem:[x_0].
+
+* When stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}], then the linear approximation of stem:[f] at stem:[\mathbf{x}_0] is stem:[l_{\mathbf{x}_0}(\mathbf{x}) = f(\mathbf{x}_0) + \mathbf{w}^\top (\mathbf{x} - \mathbf{x}_0)]. If there exists a stem:[\mathbf{w} \in \mathbb{R}^n] such that 
++
+[stem]
+++++
+\lim_{\mathbf{x} \to \mathbf{x}_0} \frac{|f(\mathbf{x}) - (f(\mathbf{x}_0) + \mathbf{w}^\top (\mathbf{x}-\mathbf{x}_0))|}{\| \mathbf{x} - \mathbf{x}_0\|_2} = 0
+++++
++
+goes to 0, then we say the function is differentiable at stem:[\mathbf{x}_0]. And we call such a vector stem:[\mathbf{w}^\top] as the (total) derivative of stem:[f] at stem:[\mathbf{x}_0]. And it can be shown that the entries are
++
+[stem]
+++++
+Df(\mathbf{x}_0) = \mathbf{w}^\top = 
+\begin{bmatrix}
+\frac{\partial f(\mathbf{x}_0) }{\partial x_1} & \dots & \frac{\partial f(\mathbf{x}_0) }{\partial x_n} 
+\end{bmatrix}
+++++
++
+This is just the transpose of the gradient vector.
+
+* When stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}^m] (a vector-valued function), then the linear approximation of stem:[f] at stem:[\mathbf{x}_0] is stem:[l_{\mathbf{x}_0}(\mathbf{x}) = f(\mathbf{x}_0) + \mathbf{A} (\mathbf{x} - \mathbf{x}_0)]. If there exists a stem:[\mathbf{A} \in \mathbb{R}^{m \times n}] such that
++
+[stem]
+++++
+\lim_{\mathbf{x} \to \mathbf{x}_0} \frac{\| f(\mathbf{x}) - (f(\mathbf{x}_0) + \mathbf{A} (\mathbf{x} - \mathbf{x}_0))\|_2}{\| \mathbf{x} - \mathbf{x}_0\|_2} = 0
+++++
++
+the limit goes to 0, then we say the function is differentiable at stem:[\mathbf{x}_0]. And we call such stem:[\mathbf{A}] as the Jacobian of stem:[f] which is evaluated at stem:[\mathbf{x}_0]. And it can be shown that the entries of the Jacobian matrix are
++
+[stem]
+++++
+Df(\mathbf{x}_0) = \mathbf{A} =
+\begin{bmatrix}
+\frac{\partial f_1(\mathbf{x}_0) }{\partial x_1} & \dots & \frac{\partial f_1(\mathbf{x}_0) }{\partial x_n} \\
+\vdots & \dots & \vdots \\
+\frac{\partial f_m(\mathbf{x}_0) }{\partial x_1} & \dots & \frac{\partial f_m(\mathbf{x}_0) }{\partial x_n} \\
+\end{bmatrix}
+++++

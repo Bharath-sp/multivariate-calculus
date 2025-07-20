@@ -1,0 +1,324 @@
+= Lagrange Duality =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Lagrangian Function ==
+Suppose we have a mathematical program
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{x} \in D} & \hspace{1cm} f(\mathbf{x}) \\
+& \text{ s.t. } g(\mathbf{x}) \leq 0
+\end{align*}
+++++
+
+This is a constrained optimization problem. We can send the constraint to the objective function and write an equivalent MP. The following method makes the feasibility set simpler and the objective function a bit complicated.
+
+Let's introduce an indicator function on a set stem:[S].
+
+[stem]
+++++
+I_S(\mathbf{x}) = \begin{cases} 0 & \text{ if } \mathbf{x} \in S \\ \infty & \text{ if } \mathbf{x} \not \in S  \end{cases} 
+++++
+
+Then can rewrite our MP as
+
+[stem]
+++++
+\min_{\mathbf{x} \in D} f(\mathbf{x}) + I_{\{\mathbf{x} \, | \, g(\mathbf{x}) \leq 0\}} (\mathbf{x})
+++++
+
+* If stem:[\mathbf{x} \in S], then the indicator function returns 0. The MP is stem:[\min_{\mathbf{x} \in D} f(\mathbf{x})]. The value of the objective function can be some finite number, stem:[-\infty] or stem:[+\infty].
+* If stem:[\mathbf{x} \not \in S], then the indicator function returns stem:[\infty]. The MP is stem:[\min_{\mathbf{x} \in D} f(\mathbf{x}) + \infty]. The value of the objective function is stem:[\infty].
+
+The set of the objective function values will be some finite numbers, stem:[-\infty], and stem:[\infty]. The infimum of this set is the value of the MP. Any finite value is a better solution than stem:[\infty], so adding stem:[\infty] to this set doesn't affect the optimal solution.
+
+NOTE: The feasibility set of the MP has now become only the domain. And the constrained problem has now become an unconstrained problem. There are only domain constraints now, no explicit constraints.
+
+This indicator function itself can be written as a mathematical program:
+
+[stem]
+++++
+I_{\{\mathbf{x} \, | \, g(\mathbf{x}) \leq 0\}} (\mathbf{x}) = \max_{\lambda \geq 0} \lambda g(\mathbf{x})
+++++
+
+* If stem:[\mathbf{x}] is such that stem:[g(\mathbf{x}) \leq 0], say stem:[g(\mathbf{x}) = -3], then we have stem:[\max_{\lambda \geq 0} -3\lambda = 0].
+* If stem:[\mathbf{x}] is such that stem:[g(\mathbf{x}) > 0], say stem:[g(\mathbf{x}) = 3], then we have stem:[\max_{\lambda \geq 0} 3\lambda = \infty].
+
+Thus we get back our indicator function. The stem:[\lambda]'s are known as *Lagrange Multipliers*.
+
+[NOTE]
+====
+* When the constraint function is of the form: stem:[g(\mathbf{x}) \geq 0]:
++
+[stem]
+++++
+I_{\{\mathbf{x} \, | \, g(\mathbf{x}) \geq 0\}} (\mathbf{x}) = I_{\{\mathbf{x} \, | \, - g(\mathbf{x}) \leq 0\}} (\mathbf{x}) = \max_{\lambda \leq 0} \lambda g(\mathbf{x})
+++++
+
+* When the constraint is of the equality form: stem:[g(\mathbf{x}) = 0]. This can be broken down into stem:[g(\mathbf{x}) \leq 0] and stem:[-g(\mathbf{x}) \leq 0]. Thus
++
+[stem]
+++++
+I_{\{\mathbf{x} \, | \, g(\mathbf{x}) = 0\}} (\mathbf{x}) = \max_{\lambda \in \mathbb{R}} \lambda g(\mathbf{x})
+++++
+====
+
+Then can rewrite our MP as
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{x} \in D} & \hspace{1cm} f(\mathbf{x}) \\
+& \text{ s.t. } g(\mathbf{x}) \leq 0
+\end{align*}
+++++
+
+[stem]
+++++
+\begin{align*}
+& = \min_{\mathbf{x} \in D} f(\mathbf{x}) + \max_{\lambda \geq 0} \lambda g(\mathbf{x}) \\
+& = \min_{\mathbf{x} \in D} \max_{\lambda \geq 0} f(\mathbf{x}) + \lambda g(\mathbf{x}) 
+\end{align*}
+++++
+
+As stem:[f(\mathbf{x})] is independent of stem:[\lambda], it is a constant. Thus, it is taken inside the `max` symbol.
+
+When we have more constraints, the general form of a constrained optimization problem is given as:
+
+[stem, id='eq_1']
+++++
+\begin{align}
+(P) \,\, \min_{\mathbf{x} \in D} & \hspace{1cm} f(\mathbf{x}) \nonumber \\
+& \text{ s.t. } g_1(\mathbf{x}) \leq 0, \dots, g_m(\mathbf{x}) \leq 0
+\end{align}
+++++
+
+where stem:[f: \mathbb{R}^n \to \mathbb{R}], stem:[g_i: \mathbb{R}^n \to \mathbb{R}; i=1,2,\dots, m]. Then, we add one indicator for each constraint. So, this MP can be rewritten as an unconstrained optimization problem as
+
+[stem]
+++++
+\begin{align*}
+& \min_{\mathbf{x} \in D} f(\mathbf{x}) + I_{\{\mathbf{x} \, | \, g_1(\mathbf{x}) \leq 0\}} (\mathbf{x}) + \dots + I_{\{\mathbf{x} \, | \, g_m(\mathbf{x}) \leq 0\}} (\mathbf{x}) \\
+& = \min_{\mathbf{x} \in D} f(\mathbf{x}) + \sum_{i=1}^m I_{\{\mathbf{x} \, | \, g_i(\mathbf{x}) \leq 0\}} (\mathbf{x}) \\
+& = \min_{\mathbf{x} \in D} f(\mathbf{x}) + \sum_{i=1}^m \max_{\lambda_i \geq 0} \lambda_i g_i(\mathbf{x}) \\
+& = \min_{\mathbf{x} \in D} \max_{\lambda_i \geq 0 \, \forall i} f(\mathbf{x}) + \sum_{i=1}^m  \lambda_i g_i(\mathbf{x})  \\
+& \geq \max_{\lambda_i \geq 0 \, \forall i} \min_{\mathbf{x} \in D} f(\mathbf{x}) + \sum_{i=1}^m  \lambda_i g_i(\mathbf{x}) && \text{ from previous result} \\
+\end{align*}
+++++
+
+This function stem:[ \mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) + \sum_{i=1}^m  \lambda_i g_i(\mathbf{x}) = f(\mathbf{x}) + \boldsymbol{\lambda}^\top g(\mathbf{x})], a function of both stem:[\mathbf{x}] and stem:[\boldsymbol{\lambda}] is known as the *Lagrangian function*. Here stem:[\boldsymbol{\lambda}] is a vector of Lagrange multipliers.
+
+== Lagrangian Dual Function ==
+For the mathematical program
+
+[stem]
+++++
+\max_{\lambda_i \geq 0 \, \forall i} \min_{\mathbf{x} \in D} f(\mathbf{x}) + \sum_{i=1}^m  \lambda_i g_i(\mathbf{x})
+++++
+
+We first evaluate the inner `min` MP. The variable of the inner MP is stem:[\mathbf{x}], and stem:[\lambda_i]'s are parameters. Thus the value of this MP is a function of stem:[\boldsymbol{\lambda} \in \mathbb{R}^m]. Let's denote this as stem:[\underline{\mathcal{L}}(\boldsymbol{\lambda})]. This is known as *Lagrange dual function*.
+
+[stem]
+++++
+\underline{\mathcal{L}}(\boldsymbol{\lambda}) = \min_{\mathbf{x} \in D} \mathcal{L}(\mathbf{x}, \boldsymbol{\lambda})
+++++
+
+*What kind of function is stem:[\underline{\mathcal{L}}(\boldsymbol{\lambda})]?*
+
+Suppose we want to find the value of this function at stem:[\boldsymbol{\lambda}_0].
+
+We can see that the Langragian function stem:[\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda})] is a linear function in stem:[\boldsymbol{\lambda}]. Let stem:[\mathbf{x}_0] be some point in stem:[D]. For a chosen stem:[\mathbf{x}_0], let's plot the function stem:[\underline{\mathcal{L}}(\boldsymbol{\lambda})] as a function of stem:[\boldsymbol{\lambda}]. We get
+
+[stem]
+++++    
+\mathcal{L}(\mathbf{x}_0, \boldsymbol{\lambda}) = f(\mathbf{x}_0) + \sum_{i=1}^m  \lambda_i g_i(\mathbf{x}_0)
+++++
+
+which is a hyperplane. Here stem:[\mathbf{x}_0] is fixed, and stem:[\boldsymbol{\lambda}] is not fixed. For each stem:[\mathbf{x} \in D], we get a hyperplane. Then the lagrange dual function value at stem:[\boldsymbol{\lambda}_0] is the minimum value of all those hyperplane values.
+
+.In one-dimensional functions and when we have only one constraint
+image::.\images\lagrangian_01.png[align='center', 500, 300]
+
+When we look at the minimum at every stem:[\boldsymbol{\lambda}], we trace a concave function. This happens irrespective of how the hyperplanes are. And we are interested in finding the maximum value of this concave function.
+
+*Lagrange Dual MP:*
+
+stem:[\underline{\mathcal{L}}(\boldsymbol{\lambda})] is always a concave function irrespective of how complicated the functions stem:[f(\mathbf{x})] and stem:[g_i(\mathbf{x})] are. Then the MP
+
+[stem, id='eq_2']
+++++
+\begin{align}
+\max_{\boldsymbol{\lambda} \geq 0} \underline{\mathcal{L}}(\boldsymbol{\lambda})
+\end{align}
+++++
+
+is always a convex programming problem. This MP is known as the *Lagrange dual* of the primal problem <<eq_1, (P)>>. The Langrange dual is always a tractable MP problem that we can solve to get the *lower bound* for the primal. As the primal MP is the minimization problem, the lower bound is beneficial. It says that value of the primal MP can't be lower than this value.
+
+NOTE: In general, `duality` refers to an alternative formulation of the original optimization problem, typically designed to be more tractable or analytically convenient.
+
+And there are a huge class of problems where the dual MP is exactly the same as the primal MP. For such problems, we can solve the dual MP rather than the primal MP as the dual MP is often easy and tractable to solve.
+
+====
+* If the primal problem is tractable, the dual provides an alternative simple formulation that is also tractable. In such cases, the dual MP is exactly equivalent to the primal MP; that is, solving the dual yields the same optimal value as the primal.
+
+* If the primal problem is not tractable, the dual offers a tractable approximation. In these cases, the dual is not exactly equivalent to the primal, but solving the dual provides a very good lower bound on the optimal value of the primal.
+====
+
+*Primal MP vs Dual MP:*
+
+. Suppose we have a problem where the dimensionality of stem:[\mathbf{x}] is very high (say, in the order of billions), but the number of constraints is relatively small. In such cases, the primal problem <<eq_1, MP 1>> involves billions of variables. Although the primal problem may be tractable in theory, it requires substantial computational effort due to the large number of variables.
++
+On the other hand, the dual problem <<eq_1, MP 2>> may be easier to handle. Suppose the Langragian dual function stem:[\underline{\mathcal{L}}(\boldsymbol{\lambda}) =\min_{\mathbf{x} \in D} \mathcal{L}(\mathbf{x}, \boldsymbol{\lambda})], which still involes stem:[\mathbf{x}] of high dimensionality, but is easy to solve and has an analytic solution. Then, the dual MP stem:[\max_{\boldsymbol{\lambda} \geq 0} \underline{\mathcal{L}}(\boldsymbol{\lambda})] will involve only stem:[m] variables stem:[(\lambda_1, \dots, \lambda_m)], where stem:[m] is the number of constraints.
+
+. Conversely, if the problem has a large number of constraints but relatively few variables, the primal problem may be easier to solve than the dual.
+
+Therefore, depending on the structure of the problem, we can decide whether to work with the primal or the dual formulation.
+
+== Examples - Solving through Dual ==
+
+*Example 01:*
+
+Suppose the MP is stem:[\min_{\|\mathbf{w}\| \leq 1} \mathbf{w}^\top\mathbf{x}], where stem:[\mathbf{x} \ne \mathbf{0}]. This can be equivalently written as
+
+[stem]
+++++
+\begin{align*}
+\min_{\mathbf{w} \in \mathbb{R}^n} & \hspace{1cm} \mathbf{w}^\top\mathbf{x} \\
+& \text{ s.t. } \frac{1}{2} \|\mathbf{w}\|^2  - \frac{1}{2}  \leq 0
+\end{align*}
+++++
+
+The steps for writing the Lagrange dual are: write the Lagrange function, write the Lagrange dual function, and then write the Lagrange dual MP. The Lagrangian and the Lagrangian dual function for this problem are
+
+[stem]
+++++
+\begin{align*}
+\mathcal{L}(\mathbf{w}, \lambda) & = \mathbf{w}^\top\mathbf{x} + \lambda \left( \frac{1}{2} \|\mathbf{w}\|^2  - \frac{1}{2}\right) && \forall \lambda \geq 0\\
+& = \frac{\lambda}{2} \mathbf{w}^\top \mathbf{w} + \mathbf{w}^\top \mathbf{x} - \frac{\lambda}{2} \\ 
+\underline{\mathcal{L}}(\lambda) & = \min_{\mathbf{w} \in \mathbb{R}^n} \mathcal{L}(\mathbf{w}, \lambda)
+\end{align*}
+++++
+
+stem:[\mathcal{L}(\mathbf{w}, \lambda)] is a quadratic function in stem:[\mathbf{w}]. We can complete the squares and write it as
+
+[stem]
+++++
+\mathcal{L}(\mathbf{w}, \lambda) = \frac{\lambda}{2} \| \mathbf{w} + \frac{\mathbf{x}}{\lambda} \|^2 -\frac{\lambda}{2} - \frac{\| \mathbf{x}\|^2}{2\lambda}
+++++
+
+(assuming stem:[\lambda \ne 0]). When stem:[\lambda=0 \implies \mathcal{L}(\mathbf{w}, \lambda) = \mathbf{w}^\top\mathbf{x} \implies \underline{\mathcal{L}}(0) = \min_{\mathbf{w} \in \mathbb{R}^n} \mathbf{w}^\top\mathbf{x} = -\infty]. Because the dot product of two vectors will be the least when they are in the opposite direction. We can take stem:[\mathbf{w}] in the negative direction of stem:[\mathbf{x}] and increase its magnitude. As we are interested in the maximum value of the lagrange dual function, we can safely ignore the possibility that stem:[\lambda=0].
+
+The minimum value of this function with respect to stem:[\mathbf{w}] occurs at stem:[\mathbf{w}^* = \frac{-\mathbf{x}}{\lambda^*}] and the minimum value is stem:[-\frac{\lambda}{2} - \frac{\| \mathbf{x}\|^2}{2\lambda}]. Thus
+
+[stem]
+++++
+\underline{\mathcal{L}}(\lambda) = -\frac{\lambda}{2} - \frac{\| \mathbf{x}\|^2}{2\lambda}
+++++
+
+Now we need to solve the Langrangian dual: 
+
+[stem]
+++++
+\max_{\lambda > 0} -\frac{\lambda}{2} - \frac{\| \mathbf{x}\|^2}{2\lambda} = - \min_{\lambda > 0} \frac{\lambda}{2} + \frac{\| \mathbf{x}\|^2}{2\lambda}
+++++ 
+
+This is a simple optimization problem involving only one variable. The primal MP involves variable of high dimensions, and it is a non-trivial problem. But its dual is easier to solve. Since the feasibility set is an open set here, the necessary condition for obtaining a local minima is that the derivative of the function has to be 0. Let stem:[h(\lambda) = \frac{\lambda}{2} + \frac{\| \mathbf{x}\|^2}{2\lambda}].
+
+[stem]
+++++
+\begin{align*}
+h'(\lambda) & = 0 \\
+\frac{1}{2} + \frac{\| \mathbf{x}\|^2}{2} \left( \frac{-1}{(\lambda^*)^2} \right) & = 0 \iff (\lambda^*)^2 = \| \mathbf{x}\|^2 \iff \lambda^* = \pm \| \mathbf{x}\|
+\end{align*}
+++++
+
+But stem:[\lambda] cannot be negative, so stem:[\lambda^* = \| \mathbf{x}\|]. This point can be a local minima or local maxima (as it is a single variable case, it won't be a saddle point). The double derivative is stem:[h''(\lambda) = \frac{\| \mathbf{x}\|^2}{\lambda^3}]. As stem:[\mathbf{x}] is not a zero vector and stem:[\lambda > 0], stem:[h''(\lambda)] is always stem:[>0]. This confirms that the function stem:[h(\lambda)] is a convex function.
+
+Thus the optimal solution is stem:[\lambda^* = \| \mathbf{x}\| \implies \mathbf{w}^* = \frac{-\mathbf{x}}{\| \mathbf{x}\|}].
+
+*Example 02:*
+
+Suppose we are given samples from a discrete random variable stem:[X]. The random variable stem:[X] can take stem:[n] different values and they are known. That is, the support of the random variable is stem:[(x_1, \dots, x_n)]. Assume we are also given the moments such as stem:[\mathbb{E}[X\], \mathbb{E}[X^2\], \dots] of this random variable, but the distribution of stem:[X] is unknown. That is, stem:[(p_1, \dots, p_n)] is unknown.
+
+If this is the only information we have, what is the right form to assume for the distribution of stem:[X]? This modelling problem can be posed as an optimization problem. Assume all the probabilities are stem:[>0] for simplicity. And we are given stem:[\alpha_1, \dots, \alpha_m \in \mathbb{R}] moments: stem:[\mathbb{E}[X^{\alpha_1}\] = k_1, \mathbb{E}[X^{\alpha_2}\] = k_2, \dots, \mathbb{E}[X^{\alpha_m}\] = k_m].
+
+We want to find a distribution given only this information. One way to say this is to maximize the entropy. That is, we are aiming for a simple non-informative distribution. Thus, the objective is to minimize the negative of the entropy.
+
+[stem]
+++++
+\begin{align*}
+\min_{p_1, \dots, p_n > 0} & \hspace{1cm} \sum_{i=1}^n p_i \log p_i \\
+& \text{ s.t. } \sum_{i=1}^n p_i x_i^{\alpha_1} = k_1, \dots, \sum_{i=1}^n p_i x_i^{\alpha_m} = k_m, \sum_{i=1}^n p_i = 1
+\end{align*}
+++++
+
+The Lagrangian function, Lagrangian dual function, and the Lagrangian dual MP for this problem are:
+
+[stem]
+++++
+\begin{align*}
+\mathcal{L}(\mathbf{p}, \boldsymbol{\lambda}, \mu) & = \sum_{i=1}^n p_i \log p_i + \lambda_1 \left( \sum_{i=1}^n p_i x_i^{\alpha_1} - k_1 \right) + \dots + \lambda_m \left(\sum_{i=1}^n p_i x_i^{\alpha_m} - k_m \right) + \mu \left(\sum_{i=1}^n p_i - 1 \right) \\
+
+& = \sum_{i=1}^n p_i \log p_i + \sum_{j=1}^m \lambda_j \left( \sum_{i=1}^n p_i x_i^{\alpha_j} - k_j \right) + \mu \left(\sum_{i=1}^n p_i - 1 \right) \\
+
+& = \sum_{i=1}^n p_i \log p_i + \sum_{j=1}^m \sum_{i=1}^n \lambda_j p_i x_i^{\alpha_j} - \sum_{j=1}^m \lambda_j k_j + \mu \left(\sum_{i=1}^n p_i - 1 \right) \\
+
+& = \sum_{i=1}^n p_i \log p_i + \sum_{i=1}^n p_i  \left( \sum_{j=1}^m \lambda_j x_i^{\alpha_j} \right) - \sum_{j=1}^m \lambda_j k_j + \mu \left(\sum_{i=1}^n p_i - 1 \right) \\
+
+\underline{\mathcal{L}}(\boldsymbol{\lambda}, \mu) & = \min_{p_1, \dots, p_n > 0} \mathcal{L}(\mathbf{p}, \boldsymbol{\lambda}, \mu) \\
+\\
+& \max_{\lambda_1, \dots, \lambda_m, \mu \in \mathbb{R}} \underline{\mathcal{L}}(\boldsymbol{\lambda}, \mu) \\
+\end{align*}
+++++
+
+In the Lagrangian dual function, the MP is over an open set. So, at the optimal solution, the gradient of the function stem:[\mathcal{L}(\mathbf{p}, \boldsymbol{\lambda}, \mu)] with respect to stem:[\mathbf{p}] should be stem:[\mathbf{0}].
+
+[stem]
+++++
+\begin{align*}
+\frac{\partial \mathcal{L}}{\partial p_r} & = \mathbf{0} \\
+1 + \log p_r + \sum_{j=1}^m \lambda_j x_r^{\alpha_j} + \mu & = \mathbf{0} \\
+1 + \log p_r + \sum_{j=1}^m \lambda_j \theta_{rj} + \mu & = \mathbf{0} && \text{ assume } \theta_j = x_r^{\alpha_j} \\
+1 + \log p_r + \boldsymbol{\lambda}^\top \boldsymbol{\theta}_r + \mu & = \mathbf{0} \\
+e^{1 + \log p_r + \boldsymbol{\lambda}^\top \boldsymbol{\theta}_r + \mu} & = \mathbf{1} \\
+
+e^{1 + \boldsymbol{\lambda}^\top \boldsymbol{\theta}_r + \mu} p_r & = \mathbf{1} \\
+p_r & = e^{-\boldsymbol{\lambda}^\top \boldsymbol{\theta}_r - \mu -1}
+\end{align*}
+++++
+
+It can also be verified that this is the local (or global) minimizer. We know that stem:[\sum_{r=1}^n p_r =1 ].
+
+[stem]
+++++
+\begin{align*}
+\sum_{r=1}^n e^{-\boldsymbol{\lambda}^\top \boldsymbol{\theta}_r - \mu -1} & = 1 \\
+e^{-\mu-1} \sum_{r=1}^n e^{-\boldsymbol{\lambda}^\top \boldsymbol{\theta}_r} & = 1 \\
+e^{-\mu-1} & = \frac{1}{\sum_{r=1}^n e^{-\boldsymbol{\lambda}^\top \boldsymbol{\theta}_r}}
+\end{align*}
+++++
+
+Substituting this in stem:[p_r] gives
+
+[stem]
+++++
+p_r = \frac{e^{-\boldsymbol{\lambda}^\top \boldsymbol{\theta}_r}}{\sum_{i=1}^n e^{-\boldsymbol{\lambda}^\top \boldsymbol{\theta}_i}} 
+++++
+
+This is a softmax function, applied to the set stem:[\{-\boldsymbol{\lambda}^\top \boldsymbol{\theta}_1, \dots, -\boldsymbol{\lambda}^\top \boldsymbol{\theta}_n\}]. Substituting this optimal solution in stem:[\mathcal{L}(\mathbf{p}, \boldsymbol{\lambda}, \mu)] gives us the value of the MP; that is, the Lagrangian dual function. As the value of stem:[\mu] is already substituted, the Lagrangian dual function will be a function of only stem:[\boldsymbol{\lambda}].
+
+Then, we can solve the Lagrangian dual MP to find the optimal solution of stem:[\boldsymbol{\lambda}]:
+
+[stem]
+++++
+\max_{\lambda_1, \dots, \lambda_m \in \mathbb{R}} \underline{\mathcal{L}}(\boldsymbol{\lambda})
+++++
+
+The optimal solution stem:[\boldsymbol{\lambda}^*] can then be substituted in stem:[p_r].
+
+
+

@@ -1,0 +1,95 @@
+= Convex Sets and Functions =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+What are convex sets? When is a function said convex?
+
+== Convex Sets ==
+A set stem:[S \subseteq \mathbb{R}^n]  is called convex if for all stem:[x_1,x_2 \in S] and stem:[\lambda \in [0,1\]]
+
+[stem]
+++++
+\lambda x_1 + (1-\lambda) x_2 \in S
+++++
+
+Geometrically, this means that a set is convex if the line segment joining any two points of stem:[S] is also in stem:[S]. If this is satisfied for all points stem:[x_1,x_2 \in S], then that set is said to be a convex set.
+
+image::.\images\convex_sets_01.png[align='center', 400, 300]
+
+A convex set can be open, closed, neither, or both (open and closed).
+
+== Convex Function ==
+Let stem:[S \subseteq \mathbb{R}^n] be a non-empty subset and stem:[f: S \to \mathbb{R}] be a function. stem:[f] is said to be convex on stem:[S] if
+
+[stem, id='eq_1']
+++++
+\begin{align}
+f(\lambda x_1 + (1-\lambda)x_2) \leq \lambda f(x_1) + (1-\lambda) f(x_2) \,\,\, \forall \,\, x_1, x_2 \in S, \lambda \in [0,1]
+\end{align}
+++++
+
+i.e., the functional value at the convex combination of stem:[x_1] and stem:[x_2] stem:[\leq] to the convex combination of the functional value stem:[f(x_1)] and stem:[f(x_2)]. Geometrically, a function is said to be convex if the function value lies below the function given by the chord joining stem:[(x_1, f(x_1))] and stem:[(x_2, f(x_2))] (the line segment stem:[AB] in the figure).
+
+.A convex function
+image::.\images\convex_function.png[align='center', 500, 400]
+
+CAUTION: The above inequality should be valid for all stem:[x_1, x_2 \in S].
+
+*Properties of Convex Functions:*
+
+* For convex functions, any local minimum imply a global minimum.
+* Any stationary point (where the derivative of the function vanishes) will be a global minimum point.
+
+* If stem:[-f] is convex, then stem:[f] is said to be *concave*.
+
+=== Strictly and Strongly Convex Functions ===
+If the inequality <<eq_1, (1)>> is strict, then stem:[f] is called *strictly convex* on stem:[S]. Strictly convex functions possess two special properties:
+
+. There can be at most one global minimum. So, once we find a minimum of the given strictly convex function, then that particular point is a unique local and global minimum point.
+. For a strictly convex function, the Hessian matrix at any point on the domain of the function will be positive definite. If the Hessian matrix is positive definite, then it must be invertible. Once it is invertible, the fastest known method in optimization, the Newton's method, will work well for the given objective function.
+
+A strongly convex function is a convex function which is curved at least like a parabola at any point. If stem:[f(\mathbf{x})-\frac{c}{2} \|\mathbf{x}\|^2] where stem:[c>0] is convex, then stem:[f] is called as strongly convex.
+
+A strongly convex function is always a strictly convex function, and a strictly convex function is always a convex function.
+
+[stem]
+++++
+\text{Strongly Convex } \implies \text{ Strictly Convex } \implies \text{ Convex}
+++++
+
+But the reverse are not true. Convex functions might not be strictly convex functions, and strictly convex functions might not be strongly convex. For example
+
+* stem:[f(x) = |1-x| + |1+x|, x \in \mathbb{R}] is convex, but not strictly convex.
+* stem:[f(x) =x^4] is strictly convex, but not strongly convex.
+
+== Common Examples of Convex Functions ==
+
+. Any norm stem:[f(\mathbf{x}) =\|\mathbf{x}\|] is always a convex function. From the triangle-inequality property of norms
++
+[stem]
+++++
+\begin{align*}
+\| \lambda \mathbf{x} + (1-\lambda) \mathbf{y} \| & \leq \|\lambda \mathbf{x}  \| + \|(1-\lambda) \mathbf{y} \| \\
+& = \lambda \|\mathbf{x}\| + (1-\lambda) \|\mathbf{y}\|
+\end{align*}
+++++
++
+where stem:[\lambda \in [0,1\]]. All norms such as stem:[l_p] norm, infinity norm, ellipsoidal norm (or Mahalanobis distance) are all convex functions.
+
+. Exponential functions stem:[f(x)=e^{ax}] for stem:[a \in \mathbb{R}] where stem:[x \in \mathbb{R}], is a convex function.
+. Exponential functions of the form stem:[f(x) = x^a] for stem:[a \geq 1] or stem:[a \leq 0] is a convex function.
+. stem:[f(x) = - \log x, \, x>0] is a convex function. And, stem:[\log x, \, x>0] is a concave function.
+. Negative entropy: stem:[f(x) = x \log x, \, x>0] is a convex function.
+. Any affine function stem:[f(\mathbf{x}) = \mathbf{a}^\top \mathbf{x} + b] is always a convex function. Affine functions are not only convex functions, but they are also concave functions. A function stem:[f] is both convex and concave if and only if stem:[f] is affine.
+
+. Quadratic functions: stem:[f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\top \mathbf{Qx} + \mathbf{a}^\top \mathbf{x} + b ] where stem:[\mathbf{Q}] is a positive semi-definite matrix.
+. Least squares function: stem:[f(\mathbf{x}) = \| \mathbf{Ax} - \mathbf{t} \|^2] where stem:[\mathbf{A} \in \mathbb{R}^{N \times d}, \, \mathbf{x} \in \mathbb{R}^d, \, \mathbf{t} \in \mathbb{R}^N].
+. Logistic loss: stem:[f(x) = \log (1+e^{-x})] is a convex function.
+
+
+[bibliography]
+== References ==
+
+* Boyd, S. P., & Vandenberghe, L. (2004). Convex Optimization. Cambridge University Press.

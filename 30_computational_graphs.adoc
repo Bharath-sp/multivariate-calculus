@@ -1,0 +1,63 @@
+= Computational Graphs =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Forward Mode AD ==
+Suppose our inputs are stem:[x] and stem:[y] and we have three lines of codes
+
+. stem:[a = \sin(x)]
+. stem:[b=\frac{a}{y}]
+. stem:[z= b + x]
+
+Find stem:[\frac{dz}{dx}] and stem:[\frac{dz}{dy}].
+
+[stem]
+++++
+\begin{align*}
+z & = \frac{\sin(x)}{y} + x \\
+\frac{dz}{dx} & = \frac{1}{y} \cdot \cos(x) + 1 \\
+\frac{dz}{dy} & = -\frac{\sin(x)}{y^2} \\
+\end{align*}
+++++
+
+Another way to get the derivatives is to think of it graphically. We can represent these computations in a Directed Acyclic Graph (DAG). This graph has arrows on all the edges and there will be no cycles.
+
+.Computational graph for the above computation steps
+image::.\images\dag_graph_01.png[align='center', 400, 300]
+
+In this graph, (one-step) derivatives are labelled on the edges. For example, stem:[\cos x] is the derivative of stem:[a] with respect to stem:[x]. Let's walk along the path to find the derivative stem:[\frac{dz}{dx}]. There are two paths to go from stem:[x] to stem:[z]. Let's write down the derivative from right to left as we go.
+
+[stem]
+++++
+\begin{align*}
+\frac{dz}{dx} & =  \frac{dz}{db} \cdot \frac{db}{da} \cdot \frac{da}{dx} + \frac{dz}{dx} = 1 \cdot \frac{1}{y} \cdot \cos(x) + 1 && \text{(write right to left)} \\
+\frac{dz}{dy} & = \frac{dz}{db} \cdot \frac{db}{dy} = 1 \cdot \frac{-a}{y^2} = -\frac{\sin(x)}{y^2} \\
+\end{align*}
+++++
+
+This way of computing the derivatives is known as the forward mode automatic differentiation.
+
+Implementation of forward mode:
+
+We can create a new data structure stem:[a+b\epsilon] called a dual number where stem:[\epsilon^2 = 0]. This is more like a complex number. Here the primal part (the real part) stem:[a] carries the function value, and the other part stem:[b] carries the derivative. 
+
+== Reverse Mode AD ==
+Now let's not start on the left end, but let's start on the right end. We walk from stem:[z] to stem:[x] to compute the derivative stem:[\frac{dz}{dx}]. There are two paths. We write down the derivatives from left to right.
+
+[stem]
+++++
+\begin{align*}
+\frac{dz}{dx} & =  \frac{dz}{db} \cdot \frac{db}{da} \cdot \frac{da}{dx} + \frac{dz}{dx}  = 1 \cdot \frac{1}{y} \cdot \cos(x) + 1 && \text{(write left to right)} \\
+\frac{dz}{dy} & = \frac{dz}{db} \cdot \frac{db}{dy} = 1 \cdot \frac{-a}{y^2} = -\frac{\sin(x)}{y^2} \\
+\end{align*}
+++++
+
+In both these modes, we essentially calculate the sum of all *path products* from inputs to outputs or vice-versa. Path product is the product of edge weights as we traverse a path. When we are dealing with matrices
+
+image::.\images\dag_graph_02.png[align='center', 300, 200]
+
+We know that the matrix multiplication is associative. For any three matrices stem:[A, B], and stem:[C], where the dimensions are compatible for multiplication, stem:[A(BC)=(AB)C]. But it matters in what order we go in terms of the complexity of the computation; one order might be an stem:[N^3] computation and the other order might be an stem:[N^2] computation.
+
+To take the path product, we can go either from left to right to compute stem:[A(BC)] or from right to left to compute stem:[(AB)C]. Both gives the same results. So as long as the operation satisfies associativity, we can go either from left to right (or) right to left. But note we might have to transpose certain things to have them in the compatible order.

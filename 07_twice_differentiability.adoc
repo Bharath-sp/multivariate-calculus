@@ -7,6 +7,15 @@
 :toc:
 
 == Introduction ==
+
+*Explicit Form:*
+
+The second derivative of a scalar valued function of a vector is represented as a symmetric matrix known as the Hessian of the function.
+
+*Implicit Form:*
+
+All second derivatives are what is known in advanced linear algebra as a quadratic form (or a symmetric bilinear form).
+
 The second derivative can be interpreted as the derivative of the first derivative.
 
 For a single variable function stem:[f(x)], its derivative is also a single variable function stem:[f'(x)] that takes an input stem:[x] and gives a scalar. We can easily take the derivative of these functions as well to get stem:[f''(x)].

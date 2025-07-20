@@ -1,0 +1,13 @@
+= Numerical Optimization =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Introduction ==
+Numerical optimization methods help us solve optimization problems (mathematical programs) numerically using a computer. One of the basic algorithm is the gradient descent.
+
+
+
+
+

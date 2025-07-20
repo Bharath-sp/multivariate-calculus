@@ -48,7 +48,7 @@ Suppose stem:[f : \mathbb{R}^n \rightarrow \mathbb{R}^m] is differentiable at st
 Dh(\mathbf{x}) = Dg(f(\mathbf{x})) Df(\mathbf{x})
 ++++
 
-Where stem:[D] denotes the Jacobian of the function, which results in a matrix. The RHS is the multiplication of two matrices. We should take care of the order and transpose a matrix if necessary.
+Where stem:[D] is the derivative and it is the Jacobian of the functions in this case. The RHS is the multiplication of two matrices. We should take care of the order and transpose a matrix if necessary.
 
 For example, suppose stem:[f : \mathbb{R}^n \rightarrow \mathbb{R}] and stem:[g: \mathbb{R} \rightarrow \mathbb{R}], and stem:[h(\mathbf{x})= g(f(\mathbf{x}))]. Then
 

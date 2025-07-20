@@ -1,0 +1,137 @@
+= Coordinate Systems =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+A coordinate system is "a way to define locations in space", typically using numbers or coordinates. It's an arrangement of lines or curves that define the position of points or other geometric elements in space. The most commonly used coordinate systems are the Cartesian system and the polar system.
+
+== Cartesian Coordinate System ==
+
+The Cartesian (Rectangular) system uses perpendicular lines (axes) to define a point's location. 
+
+* stem:[\mathbb{R} = \{x: x \in \mathbb{R}\}] - the number line.
+* stem:[\mathbb{R}^2 = \{(x,y): x,y \in \mathbb{R}\}] - two-dimensional Cartesian plane.
+* stem:[\mathbb{R}^3 = \{(x,y,z): x,y,z \in \mathbb{R}\}] - three-dimensional Cartesian space.
+* stem:[\mathbb{R}^n = \{(x_1, x_2, \dots, x_n): x_i \in \mathbb{R}, i=1,\dots, n\}] - stem:[n-] dimensional cartesian space. This is an abstract space.
+
+*Example 01:* 
+
+Plot stem:[x=3] in stem:[\mathbb{R}, \mathbb{R}^2, \mathbb{R}^3]:
+
+* In stem:[\mathbb{R}], it's a point.
+* In stem:[\mathbb{R}^2], the equation tells us to graph all the points that are in the form stem:[(3,y)]:  it's a vertical line.
+* In stem:[\mathbb{R}^3], the equation tells us to graph all the points that are in the form stem:[(3,y,z)]:  it's a plane. This is a plane that is parallel to the stem:[yz]-plane and passes through the stem:[x]-axis at stem:[x=3].
+
+.Plot of stem:[x=3] in stem:[\mathbb{R}, \mathbb{R}^2, \mathbb{R}^3]. Image Source: <<Paul>>.
+image::.\images\coordinate_system_01.png[align='center', 500, 300]
+
+*Example 02:*
+
+Plot stem:[x^2+y^2=4] in stem:[\mathbb{R}^2] and stem:[\mathbb{R}^3]:
+
+* In stem:[\mathbb{R}^2], this is a circle centered at the origin with radius 2.
+* In stem:[\mathbb{R}^3], this may or may not be a circle. Since we have not specified stem:[z] in any way we must assume that stem:[z] can take on any value. In other words, at any value of stem:[z] this equation must be satisfied and so at any value stem:[z] we have a circle of radius 2 centered on the stem:[z]-axis. This means that we have a cylinder of radius 2 centered on the stem:[z]-axis.
+
+.Plot of stem:[x^2+y^2=4] in stem:[\mathbb{R}^2] and stem:[\mathbb{R}^3]. Image Source: <<Paul>>.
+image::.\images\coordinate_system_02.png[align='center', 300, 200]
+
+== Polar Coordinate System ==
+The polar system uses a distance from the origin and an angle to define a point's location. In the Cartesian system, we defined a point by starting at the origin and then moving stem:[x] units horizontally followed by stem:[y] units vertically.
+
+This is not, however, the only way to define a point in two dimensional space. Instead of moving vertically and horizontally from the origin to get to the point we could instead go straight out of the origin until we hit the point and then determine the angle this line makes with the positive stem:[x]-axis.
+
+.Representation of a point in the Cartesian system (left) and in the polar system (right). Image Source: <<Paul>>.
+image::.\images\coordinate_system_03.png[align='center', 500, 300]
+
+We could then use the distance of the point from the origin and the amount we needed to rotate from the positive stem:[x]-axis as the coordinates of the point stem:[(r,\theta)]. The co-ordinates in this form are called polar co-ordinates. stem:[r] can be negative as well. Below is the sketch of the points stem:[(2,\frac{\pi}{6})]  and stem:[(-2,\frac{\pi}{6})]. Here stem:[\frac{\pi}{6}] is in radians.
+
+.Representation of a point using polar coordinates. Image Source: <<Paul>>.
+image::.\images\coordinate_system_04.png[align='center', 200, 200]
+
+There is an important difference between Cartesian coordinates and polar coordinates. In Cartesian coordinates there is exactly one set of coordinates for any given point. With polar coordinates this isn't true. In polar coordinates there is literally an infinite number of coordinates for a given point. For example, the following four coordinates correspond to the same point:
+
+.Representation of a point using multiple polar coordinates. Image Source: <<Paul>>.
+image::.\images\coordinate_system_05.png[align='center', 500, 300]
+
+NOTE: Moving out in the opposite quadrant is indicated with a negative sign for stem:[r]. Rotation in clockwise direction is indicated with a negative sign for stem:[\theta].
+
+The coordinates are obtained by stem:[(5,\frac{\pi}{3}) = (5, -2\pi + \frac{\pi}{3}) = (-5,\frac{\pi}{3} + \pi) = (-5,\frac{\pi}{3} - \pi)].
+
+To plot stem:[(5, \frac{\pi}{3})]:
+
+* Start from the positive stem:[x]-axis, rotate stem:[\frac{\pi}{3}] anti-clockwise and then move out a distance of 5 in the same quadrant where it ends, stem:[(5, \frac{\pi}{3})].
+
+* Start from the positive stem:[x]-axis, rotate stem:[\frac{5\pi}{3}] clockwise and then move out a distance of 5 in the same quadrant where it ends, stem:[(5, -\frac{5\pi}{3})].
+
+These four points only represent the coordinates of the point without rotating around the system more than once. If we allow the angle to make as many complete rotations as we want, then there are an infinite number of coordinates for the same point.
+
+A point stem:[(r,\theta)] can be represented by any of the following co-ordinate pairs:
+
+[stem]
+++++
+(r,\theta + 2\pi n) \hspace{1cm} \text{ or } \hspace{1cm} (-r,\theta + 2\pi n + \pi)
+++++
+
+where stem:[n] is any integer (stem:[n=0, \pm 1, \pm2, \dots]).
+
+CAUTION: In polar coordinates, the origin is often called the pole. stem:[r] will be 0 but we can still rotate around the system by any angle we want, so the coordinates of the origin/pole are stem:[(0,\theta)].
+
+We just saw the polar coordinate system in a two-dimensional structure. But it can also be extended to three dimensions in two ways: the cylindrical coordinate system adds a second distance coordinate, and the spherical coordinate system adds a second angular coordinate.
+
+== Conversion between Coordinate Systems ==
+Let's focus on converting 2D Cartesian coordinates into 2D polar coordinates, and vice versa.
+
+.Representation of a point. Image Source: <<Paul>>.
+image::.\images\coordinate_system_06.png[align='center', 200, 200]
+
+*Cartesian to Polar:*
+
+Consider we have a point in space represented by Cartesian coordinates stem:[(x,y)]. To represent the same point in the polar coordinate system:
+
+[stem]
+++++
+\begin{align*}
+x^2 + y^2 & = (r \cos \theta)^2 + (r \sin \theta)^2 \\
+& = r^2 \cos^2\theta + r^2 \sin^2\theta \\
+& = r^2 (\cos^2\theta + \sin^2\theta) = r^2
+\end{align*}
+++++
+
+So, stem:[r = \sqrt{x^2 + y^2}]. Note that technically we should have a plus or minus in front of the root since we know that stem:[r] can be either positive or negative. We will run with the convention of positive stem:[r] here.
+
+For stem:[\theta]:
+
+[stem]
+++++
+\begin{align*}
+\frac{y}{x} = \frac{\sin \theta}{\cos \theta} = \tan \theta \implies \theta = \tan^{-1} \left( \frac{y}{x}\right)
+\end{align*}
+++++
+
+The domain of stem:[\tan^{-1}] is stem:[\mathbb{R}] and the range is stem:[(-\frac{\pi}{2}, \frac{\pi}{2})]. The inverse tangents only return values in the range stem:[(-\frac{\pi}{2}, \frac{\pi}{2})]. But recall that there is a second possible angle which results in the same value and it is given by stem:[\theta + \pi].
+
+*Polar to Cartesian:*
+
+Consider we have a point in space represented by polar coordinates stem:[(r,\theta)]. To represent the same point in the Cartesian coordinate system:
+
+[stem]
+++++
+x = r \cos \theta \hspace{1cm} \text{ and } \hspace{1cm} y = r \sin \theta
+++++
+
+[bibliography]
+== References ==
+
+* [[[Paul]]] Dawkins, Paul. Pauls online notes. Lamar University. Retrieved May 9, 2025, from https://tutorial.math.lamar.edu/
+
+
+
+
+
+
+
+
+
+
+

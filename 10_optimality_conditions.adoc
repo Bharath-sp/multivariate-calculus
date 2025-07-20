@@ -1,0 +1,194 @@
+= Optimality Conditions =
+:doctype: book
+:stem: latexmath
+:eqnums:
+:toc:
+
+== Characterizing Optimality ==
+Consider the following mathematical program:
+
+[stem, id='eq_1']
+++++
+\begin{align}
+\min_{\mathbf{x} \in D} & \hspace{1cm} f(\mathbf{x}) \nonumber \\
+& \text{ s.t. } g_1(\mathbf{x}) \leq 0, g_2(\mathbf{x}) \leq 0, \dots, g_m(\mathbf{x}) \leq 0
+\end{align}
+++++
+
+Here stem:[f: \mathbb{R}^n \to \mathbb{R}] is a multivariate scalar function and stem:[\mathbf{x} \in \mathbb{R}^n]. It is assumed that the feasible region stem:[F] of this problem is contained in some open subset of stem:[\mathbb{R}^n] where stem:[f] and stem:[g_i \, (i=1,2,\dots, m)] are defined and continuously differentiable.
+
+*Local Min point / Global Min point:*
+
+A point stem:[\mathbf{x}^* \in F] is called a local min point of the mathematical program <<eq_1, MP>> if there exists stem:[\delta > 0] such that
+
+[stem]
+++++
+f(\mathbf{x}^*) \leq f(\mathbf{x}), \hspace{1cm} \forall \mathbf{x} \in N_{\delta}(\mathbf{x}^*) \cap F.
+++++
+
+When a function has many local minima, the optimal point can be any one of the local min points. If the above inequality holds for all stem:[\mathbf{x} \in F], then stem:[\mathbf{x}^*] is called a global min point of the given mathematical program.
+
+*Feasible Direction:*
+
+Let stem:[\mathbf{x}] be a feasible point. We define a feasible direction at stem:[\mathbf{x}] to be any direction stem:[\mathbf{d} \in \mathbb{R}^n] with the property that stem:[\mathbf{x} + \alpha \mathbf{d}] is in the feasibility set stem:[F] for some sufficiently small stem:[\alpha]. That is, a direction stem:[\mathbf{d} \in \mathbb{R}^n] is feasible at stem:[\mathbf{x} \in F] if there exist stem:[\sigma > 0] such that stem:[\mathbf{x} + \alpha \mathbf{d} \in F] for all stem:[0 < \alpha \leq \sigma].
+
+We shall denote by stem:[D(\mathbf{x})] the set of all feasible directions at stem:[\mathbf{x}]:
+
+[stem]
+++++
+D(\mathbf{x}) := \{\mathbf{d} \in \mathbb{R}^n : \exists \sigma > 0 \text{ such that } \mathbf{x} + \alpha \mathbf{d} \in F \,\, \forall 0 < \alpha \leq \sigma \}
+++++
+
+This is known as the feasible direction set at stem:[\mathbf{x}]. A direction stem:[\mathbf{d}] is in stem:[D(\mathbf{x})] if we can move a small distance from stem:[\mathbf{x}] in the direction of stem:[\mathbf{d}] and still remain in the feasible set. Obviously if stem:[\mathbf{x} \in \text{Int } F], then stem:[D(\mathbf{x}) = \mathbb{R}^n].
+
+And let stem:[\bar{D}(\mathbf{x})] be the closure of the set stem:[D(\mathbf{x})]. It is the smallest closed set containing all feasible directions at stem:[\mathbf{x}] and also includes all limits of sequences of feasible directions. To be precise, the set stem:[\bar{D}(\mathbf{x})] consists of
+
+. All directions that are feasible directions at stem:[\mathbf{x}].
+. Plus directions that may not be feasible themselves, but can be approached arbitrarily closely by feasible directions.
+
+.Arrows indicate the feasible directions at the given point.
+image::.\images\optimality_00.png[align='center', 300, 300]
+
+We are usually interested in the certificate of optimality. That is, the necessary and sufficient optimality conditions for a point stem:[\mathbf{x}^*] to be a local min / global min point of the given mathematical program. When stem:[\mathbf{x}^*] is an optimal solution, it means
+
+. stem:[\mathbf{x}^* \in F], i.e., it should be in the feasible set.
+. stem:[f(\mathbf{x}^*) =] value of the MP.
++
+Say our MP is stem:[\min_{\mathbf{x} \in F} f(\mathbf{x})]. Then it is equivalent to say
++
+[stem]
+++++
+f(\mathbf{x}^*) = \min_{\mathbf{x} \in F} f(\mathbf{x}) \iff f(\mathbf{x}^*) \leq f(\mathbf{x}) \hspace{1cm} \forall \mathbf{x} \in F
+++++
++
+Here the LHS has only one equality and the RHS has uncountable number of inequalities (assuming we have our uncountable number of elements in our feasible set). For example, say we have stem:[g(y) > 3 \,\, \forall y]. This implies and implied by
++
+[stem]
+++++
+g(y) > 3 \,\, \forall y \iff \min_y g(y) \geq 3
+++++
++
+The LHS has uncountable inequalities (the number of constraints), one for each stem:[y], whereas the RHS has only one inequality. We can switch between these two equivalent representations as per our convenience.
+
+If stem:[\mathbf{x}_0] has to be a minimizer of the function stem:[f], what are the necessary conditions and sufficient conditions?
+
+== First-Order Necessary Condition ==
+
+Let stem:[\mathbf{x}^*] be a local min point of the <<eq_1, MP 1>>. Then stem:[\nabla f(\mathbf{x}^*)^\top \mathbf{d} \geq 0] for all stem:[\mathbf{d} \in \bar{D}(\mathbf{x}^*)].
+
+In case the local min point stem:[\mathbf{x}^*] of the <<eq_1, MP 1>> is in the interior of stem:[F], then stem:[D(\mathbf{x}^*) = \mathbb{R}^n]. Then the condition becomes stem:[\nabla f(\mathbf{x}^*)^\top \mathbf{d} \geq 0 \,\, \forall \mathbf{d} \in \mathbb{R}^n], which implies that stem:[\nabla f(\mathbf{x}^*) = \mathbf{0}], the well known first order necessary optimality condition.
+
+Consider the following function stem:[f: \mathbb{R}^2 \to \mathbb{R}].
+
+.Side-view of a multivariate function showing a minimum point.
+image::.\images\optimality_01.png[align='center', 300, 300]
+
+If stem:[\mathbf{x}_0] has to be the minimizer, then the function values (at least) in the neighborhood of stem:[\mathbf{x}_0] should be greater than the function value at stem:[\mathbf{x}_0].
+
+The linear approximation of the function at stem:[\mathbf{x}_0] is
+
+[stem]
+++++
+l_{\mathbf{x}_0}(\mathbf{x}) = f(\mathbf{x}_0) + \nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0)
+++++
+
+For stem:[\mathbf{x}] in the small neighborhood of stem:[\mathbf{x}_0], this linear function is a good approximation for stem:[f(\mathbf{x})]. Say we are at stem:[\mathbf{x}_0], moving instantaneously in any direction from stem:[\mathbf{x}_0] is given by the vector stem:[(\mathbf{x}-\mathbf{x}_0)]:
+
+.Input space of 1D function (left) and 2D function (right)
+image::.\images\optimality_02.png[align='center', 600, 400]
+
+By varying stem:[\mathbf{x}], we can get any direction given by stem:[(\mathbf{x} - \mathbf{x}_0)]. For any such direction, we need the function value in the neighborhood of stem:[\mathbf{x}_0] to be greater than or equal to stem:[f(\mathbf{x}_0)]. That is
+
+[stem, id='eq_2']
+++++
+\begin{align}
+f(\mathbf{x}_0) + \nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0) & \geq f(\mathbf{x}_0)  && \forall \mathbf{x} \in N_{\epsilon}(\mathbf{x}_0) \cap F \nonumber \\
+\iff \nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0) & \geq 0 \\
+\implies \nabla f(\mathbf{x}_0) = \mathbf{0}
+\end{align}
+++++
+
+where stem:[N_{\epsilon}(\mathbf{x}_0)] is an open ball around stem:[\mathbf{x}_0] with stem:[\epsilon] radius. Note that stem:[\nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0)] is a dot product between the vectors stem:[\nabla f(\mathbf{x}_0)] and stem:[(\mathbf{x}-\mathbf{x}_0)]. Here stem:[\nabla f(\mathbf{x}_0)] is a fixed vector and stem:[(\mathbf{x}-\mathbf{x}_0)] changes depending on the stem:[\mathbf{x}] value. The dot product between these two vectors will be stem:[\geq 0] for all stem:[\mathbf{x} \in N_{\epsilon}(\mathbf{x}_0) \cap F] only when stem:[\nabla f(\mathbf{x}_0)] is the zero vector.
+
+* In the 1D input space, there are only two directions to move: Positive and negative. So, stem:[(x-x_0)] will either be a positive or a negative number. In both cases, we want stem:[f'(x_0) (x-x_0) >0]. However, this inequality cannot hold for both positive and negative values of stem:[(x-x_0)]. That is, the inequality can only be satisfied if the derivative stem:[f'(x_0)] is 0.
+
+* In the 2D input space, there are infinitely many directions to move. So, stem:[(\mathbf{x}-\mathbf{x}_0)] can be any vector. For all such vectors, we require stem:[f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0) \geq 0 ]. This inequality holds for all directions only when the gradient stem:[\nabla f(\mathbf{x}_0)] is stem:[\mathbf{0}].
+
+Thus, in general, if the function value at all stem:[\mathbf{x} \in N_{\epsilon}(\mathbf{x}_0) \cap F] has to be greater than or equal to stem:[f(\mathbf{x}_0)], then the gradient stem:[\nabla f(\mathbf{x}_0)] must be stem:[\mathbf{0}].
+
+But if the gradient at a point stem:[\mathbf{x}_0] is stem:[\mathbf{0}], can we always conclude that the function value at all stem:[\mathbf{x} \in N_{\epsilon}(\mathbf{x}_0) \cap F] is greater than or equal to stem:[f(\mathbf{x}_0)]? No! The condition stem:[\nabla f(\mathbf{x}_0) = \mathbf{0}] is a necessary condition for stem:[\mathbf{x}_0] to be an optimal (minimum) point, but is not a sufficient condition. Consider the following function for which the function value is (locally) maximum at stem:[\mathbf{x}_0].
+
+.Side-view of a multivariate function showing a maximum point.
+image::.\images\optimality_03.png[align='center', 300, 300]
+
+Here the function value at all stem:[\mathbf{x} \in N_{\epsilon}(\mathbf{x}_0) \cap F] is lesser than or equal to stem:[f(\mathbf{x}_0)]. Even in this case, the gradient stem:[\nabla f(\mathbf{x}_0)] will be stem:[\mathbf{0}].
+
+====
+* If the gradient of stem:[f] at a point stem:[\mathbf{x}_0] is stem:[\mathbf{0}], then it means that *in the neighborhood* of stem:[\mathbf{x}_0]
+
+** The function values are all greater than or equal to stem:[f(\mathbf{x}_0)] (or) 
+** The function values are all lesser than or equal to stem:[f(\mathbf{x}_0)] (or)
+** In some directions the function values are all greater than or equal and in some other directions the function values are all less than or equal. Such an stem:[\mathbf{x}_0] is called as a saddle point.
++
+So if the gradient of stem:[f] at a point stem:[\mathbf{x}_0] is stem:[\mathbf{0}], we cannot say much. It can be a local minimum, local maximum, or a saddle point. Such points where the gradient is stem:[\mathbf{0}] are called the *stationary points*.
+
+But, if stem:[\mathbf{x}_0] has to be a local minima (or maxima), then definitely the gradient of stem:[f] at stem:[\mathbf{x}_0] should be stem:[\mathbf{0}]. This is the necessary condition, but not the sufficient condition.
+
+[stem]
+++++
+\text{Gradient zero} \not \Longrightarrow \text{Local Minima} \hspace{1cm} \text{but Local Minima} \implies \text{Gradient zero}
+++++
+
+====
+
+In general, if the gradient at stem:[\mathbf{x}_0] is stem:[\mathbf{0}], we only know about the local behaviour of the function. We cannot talk about the optimality of the point with respect to the entire feasibility set, i.e., we cannot say anything about the function value at all other stem:[\mathbf{x}] in the feasibility set. But, this may be possible if we assume something more about the feasibility set and the objective function.
+
+=== Condition when Feasibility Set is Restricted ===
+We found the necessary condition for optimality by assuming that we are able to move in all the directions from stem:[\mathbf{x}_0]. But what if the feasibility set doesn't allow us to move in all the directions?
+
+*Example 01:*
+
+Consider the following function stem:[f(x)=x^2] and the MP is stem:[\arg \min_{x \in [1,2\]} x^2]. The feasibility set is stem:[[1,2\]]. We know in the given feasibility set, stem:[x=1] is the minimizer of the function. But the derivative at this point stem:[f'(1)] is not zero.
+
+.Optimal point of the function when the feasibility set is restricted.
+image::.\images\optimality_04.png[align='center', 300, 300]
+
+This proves that the optimal solution of a function can exist even at the point where the derivative (or gradient) is non-zero. This occurs because the feasibility set is restricted, and movement is not allowed in all the directions. For example, in the above case, we can only move in the positive direction from stem:[x_0]. In such cases, the necessary condition for optimality is simply <<eq_1, Equation 1>>:
+
+[stem]
+++++
+\begin{align*}
+f'(x_0) (x-x_0) & \geq 0 && \forall x \in N_{\epsilon}(x_0) \cap F \\
+\end{align*}
+++++
+
+We cannot further simplify this inequality. And we see that this inequality is satisfied only for stem:[x_0] in the feasibility set. At stem:[x_0], the derivative is a positive number. Since we can only move in the positive direction, i.e., stem:[x] has to be greater than stem:[x_0], stem:[(x-x_0)] is also a positive number. Thus, the product stem:[f'(x_0) (x-x_0)] will be stem:[\geq 0] for all stem:[x \in N_{\epsilon}(x_0) \cap F].
+
+The inequality is not satisfied for any other points in the feasibility set.
+
+*Example 02:*
+
+Consider a function stem:[f: \mathbb{R}^2 \to \mathbb{R}], which is given by stem:[f(\mathbf{x}) = (x_1-4)^2 + (x_2-4)^2]. And the feasibility set is stem:[x_1^2 + x_2^2 <= 4].
+
+.Level set and feasibility set of the function in the input space
+image::.\images\optimality_05.png[align='center', 500, 300]
+
+Visually we can see that the optimal point of the function should be stem:[\mathbf{x}_0]. But the gradient is not the zero vector at stem:[\mathbf{x}_0].
+
+This again demonstrates that the optimal solution of a function can exist even at the point where the gradient is non-zero. This occurs because the feasible set is restricted, and movement is not allowed in all directions. For example, in the above case, movement from stem:[\mathbf{x}_0] is permitted only along specific directions. In such cases, the necessary condition for optimality is simply <<eq_1, Equation 1>>:
+
+[stem]
+++++
+\begin{align*}
+\nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0) & \geq 0 && \forall \mathbf{x} \in N_{\epsilon}(\mathbf{x}_0) \cap F \\
+\end{align*}
+++++
+
+We cannot further simplify this inequality. And we see that this inequality is satisfied only for stem:[\mathbf{x}_0] in the feasibility set. The directions that are allowed to move are the directions that make acute angle with the gradient vector and stay within the feasibility set. The dot product between such a vector and the gradient vector will always be stem:[\geq 0]. Thus, the condition is satisfied for stem:[\mathbf{x}_0].
+
+The inequality condition is not satisfied for any other points in the feasibility set. For example, we can move along any direction from the point stem:[\mathbf{x}'], but this point doesn't satisfy the inequality condition.
+
+== Summary ==
+* When there is no restriction in the direction or when the feasibility set is an open set (doesn't include the boundary points), the optimal point must have gradient stem:[\mathbf{0}].
+
+* But if there is restriction in the direction that we can go from stem:[\mathbf{x}_0] because of the feasibility set, then the gradient being stem:[\mathbf{0}] is not the valid necessary condition. The condition is simply stem:[\nabla f(\mathbf{x}_0)^\top (\mathbf{x}-\mathbf{x}_0) \geq 0]. The optimal point stem:[\mathbf{x}_0] has to satisfy this condition.
